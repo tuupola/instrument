@@ -105,7 +105,6 @@ class GaugeTest extends \PHPUnit_Framework_TestCase
     public function testShouldRememberValues()
     {
         $gauge = new Gauge();
-        var_dump($gauge->memory->read());
 
         $gauge->set(66);
         $gauge->set("users", 666);

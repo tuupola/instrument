@@ -35,6 +35,5 @@ class InfluxDBTest extends \PHPUnit_Framework_TestCase
 
         $transformer = new InfluxDB;
         $result = $transformer->transform($measurements);
-        //var_dump($result);
     }
 }
