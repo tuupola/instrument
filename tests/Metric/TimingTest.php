@@ -66,8 +66,8 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         usleep(3500);
         $timing->stop("jump");
 
-        $this->assertTrue($timing->get() > 2);
-        $this->assertTrue($timing->get("jump") > 3);
+        $this->assertTrue($timing->get() >= 2);
+        $this->assertTrue($timing->get("jump") >= 3);
     }
 
     public function testShouldMeasureClosure()
@@ -80,8 +80,8 @@ class TimingTest extends \PHPUnit_Framework_TestCase
             usleep(3500);
         });
 
-        $this->assertTrue($timing->get() > 2);
-        $this->assertTrue($timing->get("dive") > 3);
+        $this->assertTrue($timing->get() >= 2);
+        $this->assertTrue($timing->get("dive") >= 3);
     }
 
     public function testClosureShouldReturn()

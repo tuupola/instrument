@@ -84,8 +84,8 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         usleep(3500);
         $instrument->timing("test")->stop("jump");
 
-        $this->assertTrue($instrument->timing("test")->get() > 2);
-        $this->assertTrue($instrument->timing("test")->get("jump") > 3);
+        $this->assertTrue($instrument->timing("test")->get() >= 2);
+        $this->assertTrue($instrument->timing("test")->get("jump") >= 3);
     }
 
     public function testShouldMeasureChainedClosure()
@@ -100,7 +100,7 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
             usleep(3500);
         });
 
-        $this->assertTrue($instrument->timing("test")->get() > 2);
-        $this->assertTrue($instrument->timing("test")->get("dive") > 3);
+        $this->assertTrue($instrument->timing("test")->get() >= 2);
+        $this->assertTrue($instrument->timing("test")->get("dive") >= 3);
     }
 }
