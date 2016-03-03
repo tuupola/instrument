@@ -67,9 +67,9 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $adapter = $instrument->adapter();
         $sent = $adapter->measurements();
 
-        $this->assertEquals("users", $sent["users"]->name());
-        $this->assertEquals("roundtrip", $sent["roundtrip"]->name());
-        $this->assertEquals("tickets", $sent["tickets"]->name());
+        $this->assertEquals("users", $sent["users"]->getMeasurement());
+        $this->assertEquals("roundtrip", $sent["roundtrip"]->getMeasurement());
+        $this->assertEquals("tickets", $sent["tickets"]->getMeasurement());
     }
 
     public function testShouldStartAndStopChainedTimer()

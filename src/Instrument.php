@@ -64,7 +64,7 @@ class Instrument
     public function send()
     {
         $measurements = $this->transformer->transform($this->measurements);
-        $this->adapter->send($this->measurements);
+        $this->adapter->send($measurements);
     }
 
     public function setAdapter($adapter)
