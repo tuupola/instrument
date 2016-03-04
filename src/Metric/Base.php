@@ -94,5 +94,17 @@ abstract class Base implements Metric
         return $this->tags;
     }
 
+    public function addTag($key, $value)
+    {
+        $this->tags[$key] = $value;
+        return $this;
+    }
+
+    public function removeTag($key)
+    {
+        unset($this->tags[$key]);
+        return $this;
+    }
+
     abstract public function getType();
 }

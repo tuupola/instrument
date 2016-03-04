@@ -41,8 +41,19 @@ class TimingTest extends \PHPUnit_Framework_TestCase
     public function testShouldSetAndGetTags()
     {
         $timing = new Timing();
-        $timing->setTags(["foo", "bar"]);
-        $this->assertEquals(["foo", "bar"], $timing->getTags());
+        $timing->setTags(["foo" => "bar"]);
+        $this->assertEquals(["foo" => "bar"], $timing->getTags());
+    }
+
+    public function testShouldAddAndRemoteTags()
+    {
+        $timing = new Timing();
+        $timing->setTags(["foo" => "bar"]);
+        $this->assertEquals(["foo" => "bar"], $timing->getTags());
+        $timing->addTag("hit", "pop");
+        $this->assertEquals(["foo" => "bar", "hit" => "pop"], $timing->getTags());
+        $timing->removeTag("foo");
+        $this->assertEquals(["hit" => "pop"], $timing->getTags());
     }
 
     public function testShouldBeChainable()
