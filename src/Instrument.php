@@ -33,32 +33,35 @@ class Instrument
 
     public function timing($name, $value = null)
     {
-        $data = $this->createData($name, $value);
-
-        if (!isset($this->measurements[$data["name"]])) {
-            $this->measurements[$data["name"]] = new Metric\Timing($data);
+        if (!isset($this->measurements[$name])) {
+            $this->measurements[$name] = new Metric\Timing([
+                "name" => $name,
+                "value" => $value
+            ]);
         }
-        return $this->measurements[$data["name"]];
+        return $this->measurements[$name];
     }
 
-    public function count($name, $value)
+    public function count($name, $value = null)
     {
-        $data = $this->createData($name, $value);
-
-        if (!isset($this->measurements[$data["name"]])) {
-            $this->measurements[$data["name"]] = new Metric\Count($data);
+        if (!isset($this->measurements[$name])) {
+            $this->measurements[$name] = new Metric\Count([
+                "name" => $name,
+                "value" => $value
+            ]);
         }
-        return $this->measurements[$data["name"]];
+        return $this->measurements[$name];
     }
 
-    public function gauge($name, $value)
+    public function gauge($name, $value = null)
     {
-        $data = $this->createData($name, $value);
-
-        if (!isset($this->measurements[$data["name"]])) {
-            $this->measurements[$data["name"]] = new Metric\Gauge($data);
+        if (!isset($this->measurements[$name])) {
+            $this->measurements[$name] = new Metric\Gauge([
+                "name" => $name,
+                "value" => $value
+            ]);
         }
-        return $this->measurements[$data["name"]];
+        return $this->measurements[$name];
     }
 
     public function send()
@@ -92,12 +95,20 @@ class Instrument
     private function createData($name, $value)
     {
         if (is_array($name)) {
-            $data["name"] = $name[0];
+            $name = $name[0];
             $data[$name[1]] = $value;
         } else {
-            $data["name"] = $name;
+            $name = $name;
             $data["value"] = $value;
         }
         return $data;
+    }
+
+    private function createKey($name, $value)
+    {
+        /* Last key of $data array */
+        $data = $this->createData($name, $value);
+        end($data);
+        return key($data);
     }
 }
