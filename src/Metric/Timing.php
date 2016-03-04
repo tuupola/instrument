@@ -37,7 +37,7 @@ class Timing extends Base implements Metric
     {
         $event = $this->stopwatch->stop($key);
         $duration = $event->getDuration();
-        $this->setValue($key, $duration);
+        $this->set($key, $duration);
     }
 
     public function closure($key = "value", \Closure $function = null)

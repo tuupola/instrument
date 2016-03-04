@@ -81,6 +81,29 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($timing->get("jump") >= 3);
     }
 
+    public function testShouldStartAndStopMultipleTimes()
+    {
+        $timing = new Timing();
+        $timing->start("multipass");
+        usleep(10000);
+        $timing->stop("multipass");
+        $this->assertTrue($timing->get("multipass") >= 10);
+
+        sleep(1);
+
+        $timing->start("multipass");
+        usleep(10000);
+        $timing->stop("multipass");
+        $this->assertTrue($timing->get("multipass") >= 20);
+
+        sleep(1);
+
+        $timing->start("multipass");
+        usleep(10000);
+        $timing->stop("multipass");
+        $this->assertTrue($timing->get("multipass") >= 30);
+    }
+
     public function testShouldMeasureClosure()
     {
         $timing = new Timing();
