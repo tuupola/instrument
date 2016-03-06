@@ -91,24 +91,4 @@ class Instrument
     {
         return $this->transformer;
     }
-
-    private function createData($name, $value)
-    {
-        if (is_array($name)) {
-            $name = $name[0];
-            $data[$name[1]] = $value;
-        } else {
-            $name = $name;
-            $data["value"] = $value;
-        }
-        return $data;
-    }
-
-    private function createKey($name, $value)
-    {
-        /* Last key of $data array */
-        $data = $this->createData($name, $value);
-        end($data);
-        return key($data);
-    }
 }
