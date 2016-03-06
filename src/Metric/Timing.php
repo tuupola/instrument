@@ -15,6 +15,7 @@
 
 namespace Instrument\Metric;
 
+use Closure;
 use Instrument\Metric;
 use Symfony\Component\Stopwatch\Stopwatch;
 
@@ -42,7 +43,7 @@ class Timing extends Base implements Metric
         return $this;
     }
 
-    public function closure($key = "value", \Closure $function = null)
+    public function closure($key = "value", Closure $function = null)
     {
         if (is_callable($key)) {
             $function = $key;
@@ -52,6 +53,22 @@ class Timing extends Base implements Metric
         $return = $function();
         $this->stop($key);
         return $return;
+    }
+
+    public function setValue($key, $value = null)
+    {
+        if (null === $value) {
+            $value = $key;
+            $key = "value";
+        }
+
+        /* Allow calling $timing->set("fly", function () {...}) */
+        if ($value instanceof Closure) {
+            $this->closure($key, $value);
+        } else {
+            $this->value[$key] = $value;
+        }
+        return $this;
     }
 
     public function setStopwatch(Stopwatch $stopwatch)

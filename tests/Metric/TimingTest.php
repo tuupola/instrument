@@ -109,15 +109,19 @@ class TimingTest extends \PHPUnit_Framework_TestCase
     public function testShouldMeasureClosure()
     {
         $timing = new Timing();
-        $timing->closure(function () {
+        $timing->set(function () {
             usleep(20000);
         });
         $timing->closure("dive", function () {
             usleep(30000);
         });
+        $timing->set("fly", function () {
+            usleep(15000);
+        });
 
         $this->assertEquals($timing->get(), 20, null, self::DELTA);
         $this->assertEquals($timing->get("dive"), 30, null, self::DELTA);
+        $this->assertEquals($timing->get("fly"), 15, null, self::DELTA);
     }
 
     public function testClosureShouldReturn()

@@ -93,7 +93,7 @@ With timing you can measure execution time in milliseconds. You can either pass 
 $instrument->timing("roundtrip")->set("firstbyte", 28);
 $instrument->timing("roundtrip")->set("lastbyte", 40);
 
-$instrument->timing("test")->closure(function () {
+$instrument->timing("test")->set("processing", function () {
     /* Here be dragons */
 });
 

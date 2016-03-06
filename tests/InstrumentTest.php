@@ -17,6 +17,9 @@ namespace Instrument;
 
 class InstrumentTest extends \PHPUnit_Framework_TestCase
 {
+
+    const DELTA = 10;
+
     public function testShouldCreateMetrics()
     {
         $instrument = new Instrument;
@@ -77,29 +80,29 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $instrument = new Instrument;
 
         $instrument->timing("test")->start();
-        usleep(2500);
+        usleep(10000);
         $instrument->timing("test")->stop();
 
         $instrument->timing("test")->start("jump");
-        usleep(3500);
+        usleep(20000);
         $instrument->timing("test")->stop("jump");
 
-        $this->assertTrue($instrument->timing("test")->get() >= 2);
-        $this->assertTrue($instrument->timing("test")->get("jump") >= 3);
+        $this->assertEquals($instrument->timing("test")->get(), 10, null, self::DELTA);
+        $this->assertEquals($instrument->timing("test")->get("jump"), 20, null, self::DELTA);
     }
 
     public function testShouldMeasureChainedClosure()
     {
         $instrument = new Instrument;
-        $instrument->timing("test")->closure(function () {
-            usleep(2500);
+        $instrument->timing("test")->set(function () {
+            usleep(10000);
         });
-        $instrument->timing("test")->closure("dive", function () {
-            usleep(3500);
+        $instrument->timing("test")->set("dive", function () {
+            usleep(20000);
         });
 
-        $this->assertTrue($instrument->timing("test")->get() >= 2);
-        $this->assertTrue($instrument->timing("test")->get("dive") >= 3);
+        $this->assertEquals($instrument->timing("test")->get(), 10, null, self::DELTA);
+        $this->assertEquals($instrument->timing("test")->get("dive"), 20, null, self::DELTA);
     }
 
     public function testShouldReturnExistingMeasurement()
