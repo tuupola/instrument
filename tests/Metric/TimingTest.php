@@ -17,6 +17,8 @@ namespace Instrument\Metric;
 
 class TimingTest extends \PHPUnit_Framework_TestCase
 {
+    const DELTA = 10;
+
     public function testShouldSetAndGetValue()
     {
         $timing = new Timing();
@@ -70,15 +72,15 @@ class TimingTest extends \PHPUnit_Framework_TestCase
     {
         $timing = new Timing();
         $timing->start();
-        usleep(2500);
+        usleep(20000);
         $timing->stop();
 
         $timing->start("jump");
-        usleep(3500);
+        usleep(30000);
         $timing->stop("jump");
 
-        $this->assertTrue($timing->get() >= 2);
-        $this->assertTrue($timing->get("jump") >= 3);
+        $this->assertEquals($timing->get(), 20, null, self::DELTA);
+        $this->assertEquals($timing->get("jump"), 30, null, self::DELTA);
     }
 
     public function testShouldStartAndStopMultipleTimes()
@@ -87,35 +89,35 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         $timing->start("multipass");
         usleep(10000);
         $timing->stop("multipass");
-        $this->assertTrue($timing->get("multipass") >= 10);
+        $this->assertEquals($timing->get("multipass"), 10, null, self::DELTA);
 
         sleep(1);
 
         $timing->start("multipass");
         usleep(10000);
         $timing->stop("multipass");
-        $this->assertTrue($timing->get("multipass") >= 20);
+        $this->assertEquals($timing->get("multipass"), 20, null, self::DELTA);
 
         sleep(1);
 
         $timing->start("multipass");
         usleep(10000);
         $timing->stop("multipass");
-        $this->assertTrue($timing->get("multipass") >= 30);
+        $this->assertEquals($timing->get("multipass"), 30, null, self::DELTA);
     }
 
     public function testShouldMeasureClosure()
     {
         $timing = new Timing();
         $timing->closure(function () {
-            usleep(2500);
+            usleep(20000);
         });
         $timing->closure("dive", function () {
-            usleep(3500);
+            usleep(30000);
         });
 
-        $this->assertTrue($timing->get() >= 2);
-        $this->assertTrue($timing->get("dive") >= 3);
+        $this->assertEquals($timing->get(), 20, null, self::DELTA);
+        $this->assertEquals($timing->get("dive"), 30, null, self::DELTA);
     }
 
     public function testClosureShouldReturn()
