@@ -126,4 +126,17 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(651237, $gauge->get("registered"));
         $this->assertEquals(null, $gauge->get("nosuch"));
     }
+
+    public function testShouldReturnByReference()
+    {
+        $instrument = new Instrument;
+        $count = $instrument->count("cars")->set("ford", 10);
+        $count->set("audi", 20);
+        $count->set("bmw", 30);
+
+        $this->assertEquals(10, $instrument->count("cars")->get("ford"));
+        $this->assertEquals(20, $instrument->count("cars")->get("audi"));
+        $this->assertEquals(30, $instrument->count("cars")->get("bmw"));
+        $this->assertEquals(null, $instrument->count("cars")->get("nosuch"));
+    }
 }
