@@ -1,0 +1,104 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "puppetlabs/centos-6.6-64-nocm"
+  config.vm.network "private_network", ip: "192.168.50.53"
+
+  # Configure cached packages to be shared between instances of the same base box.
+  # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
+  if Vagrant.has_plugin?("vagrant-cachier")
+      config.cache.scope = :box
+  end
+
+  # Stop iptables because it will cause too much confusion
+  config.vm.provision "shell", name: "iptables", inline: <<-SHELL
+    /etc/init.d/iptables stop
+    /sbin/chkconfig iptables off
+  SHELL
+
+  # Install PHP 5.6
+  config.vm.provision "shell", name: "php", inline: <<-SHELL
+    rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
+    yum -y install php56w php56w-opcache
+    yum -y install php56w-shmop
+    yum -y install mod_ssl
+  SHELL
+
+  # Install Composer and dependencies
+  config.vm.provision "shell", name: "composer", inline: <<-SHELL
+    curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+    cd /vagrant && /usr/local/bin/composer install
+  SHELL
+
+  # Update Apache config and restart
+  config.vm.provision "shell", name: "apache", inline: <<-'SHELL'
+    sed -i -e "s/DocumentRoot \"\/var\/www\/html\"/DocumentRoot \/vagrant\/public/" /etc/httpd/conf/httpd.conf
+    echo "EnableSendfile off" >> /etc/httpd/conf/httpd.conf
+    sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/httpd/conf/httpd.conf
+
+    /etc/init.d/httpd restart
+    /sbin/chkconfig --levels 235 httpd on
+
+    # Make sure Apache also runs after vagrant reload
+    echo "# Start Apache after /vagrant is mounted" > /etc/init/httpd.conf
+    echo "start on vagrant-mounted" >> /etc/init/httpd.conf
+    echo "exec /etc/init.d/httpd restart" >> /etc/init/httpd.conf
+  SHELL
+
+  config.vm.provision "shell", name: "influx", inline: <<-SHELL
+  cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
+[influxdb]
+name = InfluxDB Repository - RHEL 6
+baseurl = https://repos.influxdata.com/rhel/6/x86_64/stable
+enabled = 1
+gpgcheck = 1
+gpgkey = https://repos.influxdata.com/influxdb.key
+EOF
+
+    yum -y install influxdb
+    /etc/init.d/influxdb restart
+
+    yum -y install telegraf
+    /etc/init.d/telegraf restart
+
+    echo "CREATE DATABASE instrument" | /usr/bin/influx
+  SHELL
+
+  config.vm.provision "shell", name: "grafana", inline: <<-SHELL
+  cat <<EOF | sudo tee /etc/yum.repos.d/grafana.repo
+[grafana]
+name=grafana
+baseurl=https://packagecloud.io/grafana/stable/el/6/x86_64
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://packagecloud.io/gpg.key https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+EOF
+
+  yum -y install grafana
+  cp /vagrant/lib/grafana.db /var/lib/grafana/
+  chown grafana:grafana /var/lib/grafana/grafana.db
+  /etc/init.d/grafana-server restart
+  SHELL
+
+  config.vm.post_up_message = <<MESSAGE
+    ____           __                                  __
+   /  _/___  _____/ /________  ______ ___  ___  ____  / /_
+   / // __ \\/ ___/ __/ ___/ / / / __ `__ \\/ _ \\/ __ \\/ __/
+ _/ // / / (__  ) /_/ /  / /_/ / / / / / /  __/ / / / /_
+/___/_/ /_/____/\\__/_/   \\__,_/_/ /_/ /_/\\___/_/ /_/\\__/
+
+$ while sleep 1; do curl http://192.168.50.53/random; done
+$ watch -n 1 curl --silent  http://192.168.50.53/random
+
+Run either of the above commands and then open Grafana dashboard
+to see instrument in action.
+
+Dashboard: http://192.168.50.53:3000/dashboard/db/instrument (admin:admin)
+.
+.
+MESSAGE
+
+end

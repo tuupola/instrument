@@ -1,0 +1,6 @@
+{
+    "require": {
+        "slim/slim": "^3.2",
+        "tuupola/instrument": "dev-master"
+    }
+}
