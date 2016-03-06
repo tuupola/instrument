@@ -145,4 +145,15 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         $timing = new Timing(["name" => "sprint"]);
         $this->assertInstanceOf("Symfony\Component\Stopwatch\Stopwatch", $timing->getStopwatch());
     }
+
+    public function testShouldBeAbleToGetMemory()
+    {
+        $timing = new Timing;
+        $timing->set(function () {
+            usleep(10000);
+        });
+
+        $this->assertEquals($timing->get(), 10, null, self::DELTA);
+        $this->assertGreaterThan(0, $timing->memory());
+    }
 }

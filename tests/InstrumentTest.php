@@ -31,7 +31,7 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $timing = $instrument->timing("roundtrip")->set("loadtime", 1432);
         $this->assertEquals(null, $timing->get());
         $this->assertEquals(null, $timing->get("value"));
-        $this->assertEquals(null, $count->get("loadtime"));
+        $this->assertEquals(1432, $timing->get("loadtime"));
 
         $gauge = $instrument->gauge("tickets", 9923);
         $this->assertEquals(9923, $gauge->get());

@@ -21,12 +21,15 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 class Timing extends Base implements Metric
 {
+    use \Witchcraft\MagicProperties;
+
     private $stopwatch = null;
+    private $memory = null;
 
     public function __construct($options = [])
     {
-        $options["stopwatch"] = new Stopwatch;
-        $this->hydrate($options);
+        $this->stopwatch = new Stopwatch;
+        parent::__construct($options);
     }
 
     public function start($key = "value")
@@ -39,6 +42,7 @@ class Timing extends Base implements Metric
     {
         $event = $this->stopwatch->stop($key);
         $duration = $event->getDuration();
+        $this->memory = $event->getMemory();
         $this->set($key, $duration);
         return $this;
     }
@@ -71,15 +75,14 @@ class Timing extends Base implements Metric
         return $this;
     }
 
-    public function setStopwatch(Stopwatch $stopwatch)
-    {
-        $this->stopwatch = $stopwatch;
-        return $this;
-    }
-
     public function getStopWatch()
     {
         return $this->stopwatch;
+    }
+
+    public function getMemory()
+    {
+        return $this->memory;
     }
 
     public function getType()

@@ -33,7 +33,9 @@ abstract class Base implements Metric
         }
 
         foreach ($options as $key => $value) {
-            $this->set($key, $value);
+            if (null !== $value) {
+                $this->set($key, $value);
+            }
         }
     }
 
