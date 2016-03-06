@@ -76,16 +76,19 @@ class Gauge extends Base implements Metric
                 $this->memory->write(json_encode($data));
             }
         }
+        return $this;
     }
 
     public function clear()
     {
         $this->delete();
+        return $this;
     }
 
     public function destroy()
     {
         $this->memory->delete();
+        return $this;
     }
 
     public function setValue($key, $value = null)
@@ -121,6 +124,7 @@ class Gauge extends Base implements Metric
     public function setMemory(SharedMemory $memory)
     {
         $this->memory = $memory;
+        return $this;
     }
 
     public function getMemory()

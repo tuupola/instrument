@@ -31,6 +31,7 @@ class Timing extends Base implements Metric
     public function start($key = "value")
     {
         $this->stopwatch->start($key);
+        return $this;
     }
 
     public function stop($key = "value")
@@ -38,6 +39,7 @@ class Timing extends Base implements Metric
         $event = $this->stopwatch->stop($key);
         $duration = $event->getDuration();
         $this->set($key, $duration);
+        return $this;
     }
 
     public function closure($key = "value", \Closure $function = null)
@@ -55,6 +57,7 @@ class Timing extends Base implements Metric
     public function setStopwatch(Stopwatch $stopwatch)
     {
         $this->stopwatch = $stopwatch;
+        return $this;
     }
 
     public function getStopWatch()
