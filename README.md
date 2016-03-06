@@ -73,10 +73,10 @@ time                  total   active  host
 Count is the simplest datatype. In addition to setting the value you can also increment and decrement it.
 
 ``` php
-$instrument->count("requests", 50); /* 50 */
-$instrument->count("requests")->increment(); /* 51 */
-$instrument->count("requests")->decrement(); /* 50 */
-$instrument->count("requests")->increment(5); /* 55 */
+$requests = $instrument->count("requests", 50); /* 50 */
+$requests->increment(); /* 51 */
+$requests->decrement(); /* 50 */
+$requests->increment(5); /* 55 */
 
 $instrument
   ->count("users")
@@ -100,6 +100,13 @@ $instrument->timing("roundtrip")->set("processing", function () {
 $instrument->timing("roundtrip")->start("sleep");
 /* Here be dragons */
 $instrument->timing("roundtrip")->stop("sleep");
+```
+
+Since timing internally uses [symfony/stopwatch](https://github.com/symfony/stopwatch) you can get PHP memory usage as a bonus. It is not automatically included in the measurement data, but you can include it manually.
+
+```php
+$memory = $instrument->timing("roundtrip")->memory()
+$memory = $instrument->timing("roundtrip")->set("memory", $memory);
 ```
 ### Gauge
 
