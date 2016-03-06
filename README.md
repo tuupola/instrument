@@ -11,7 +11,7 @@
 Install using [composer](https://getcomposer.org/).
 
 ``` bash
-$ composer require tuupola/instrument:dev-master
+$ composer require tuupola/instrument
 ```
 
 ## Quickstart
@@ -108,6 +108,7 @@ Since timing internally uses [symfony/stopwatch](https://github.com/symfony/stop
 $memory = $instrument->timing("roundtrip")->memory()
 $memory = $instrument->timing("roundtrip")->set("memory", $memory);
 ```
+
 ### Gauge
 
 Gauge is same as count. However it remembers the value between requests. You need the [shmop extension](http://php.net/manual/en/book.shmop.php) to be able to use gauges.
