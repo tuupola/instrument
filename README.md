@@ -40,6 +40,9 @@ $ vagrant up
 $ while sleep 1; do curl http://192.168.50.53/random; done
 ```
 
+![Grafana](http://www.appelsiini.net/img/instrument-grafana-1400.png)
+
+
 ## Concept
 
 Documentation assumes you have working knowledge of [InlfuxDB data structures](https://docs.influxdata.com/influxdb/v0.10/concepts/key_concepts/). Each measurement must have a `name`. Measurements should contain either one `value` or several value `fields` or both. Optionally measurement can have one or more `tags`.
