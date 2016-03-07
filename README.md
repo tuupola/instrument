@@ -30,6 +30,16 @@ $instrument->count("users", 100);
 $instrument->send();
 ```
 
+## Demo
+
+To see Instrument in action start the demo server and make some example requests. Then access the provided [demo dashboard](http://192.168.50.53:3000/dashboard/db/instrument) (admin:admin) to see live updating data.
+
+``` bash
+$ cd demo
+$ vagrant up
+$ while sleep 1; do curl http://192.168.50.53/random; done
+```
+
 ## Concept
 
 Documentation assumes you have working knowledge of [InlfuxDB data structures](https://docs.influxdata.com/influxdb/v0.10/concepts/key_concepts/). Each measurement must have a `name`. Measurements should contain either one `value` or several value `fields` or both. Optionally measurement can have one or more `tags`.
