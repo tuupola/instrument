@@ -40,10 +40,12 @@ class Timing extends Base implements Metric
 
     public function stop($key = "value")
     {
-        $event = $this->stopwatch->stop($key);
-        $duration = $event->getDuration();
-        $this->memory = $event->getMemory();
-        $this->set($key, $duration);
+        if ($this->stopwatch->isStarted($key)) {
+            $event = $this->stopwatch->stop($key);
+            $duration = $event->getDuration();
+            $this->memory = $event->getMemory();
+            $this->set($key, $duration);
+        }
         return $this;
     }
 

@@ -156,4 +156,13 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($timing->get(), 10, null, self::DELTA);
         $this->assertGreaterThan(0, $timing->memory());
     }
+
+    public function testShouldNotThrowWhenNotStarted()
+    {
+        $timing = new Timing;
+        $timing->stop("nosuch");
+
+        $this->assertNull($timing->get());
+        $this->assertNull($timing->memory());
+    }
 }
