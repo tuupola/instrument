@@ -19,7 +19,7 @@ $ composer require tuupola/instrument
 Connect Instrument to your database and start sending data.
 
 ``` php
-$influxdb = InfluxDB\Client::fromDSN("http+influxdb://localhost:8086/instrument");;
+$influxdb = InfluxDB\Client::fromDSN("http+influxdb://user:pass@localhost:8086/instrument");
 $instrument = new Instrument\Instrument([
     "adapter" => new Instrument\Adapter\InfluxDB($influxdb),
     "transformer" => new Instrument\Transformer\InfluxDB
