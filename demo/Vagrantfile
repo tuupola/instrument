@@ -26,6 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Install Composer and dependencies
   config.vm.provision "shell", name: "composer", inline: <<-SHELL
+    yum -y install git
     curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
     cd /vagrant && /usr/local/bin/composer install
   SHELL
@@ -94,7 +95,7 @@ $ while sleep 1; do curl http://192.168.50.53/random; done
 $ watch -n 1 curl --silent  http://192.168.50.53/random
 
 Run either of the above commands and then open Grafana dashboard
-to see instrument in action.
+to see Instrument in action.
 
 Dashboard: http://192.168.50.53:3000/dashboard/db/instrument (admin:admin)
 .
