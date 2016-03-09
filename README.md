@@ -119,7 +119,7 @@ Since timing internally uses [symfony/stopwatch](https://github.com/symfony/stop
 
 ```php
 $memory = $instrument->timing("roundtrip")->memory()
-$memory = $instrument->timing("roundtrip")->set("memory", $memory);
+$instrument->timing("roundtrip")->set("memory", $memory);
 ```
 
 ### Gauge
