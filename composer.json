@@ -19,12 +19,14 @@
         "php" : ">=5.5.0",
         "influxdb/influxdb-php": "^1.2",
         "tuupola/witchcraft": "^1.0",
-        "symfony/stopwatch": "^3.0",
-        "klaussilveira/simple-shm": "^1.0"
+        "symfony/stopwatch": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
         "squizlabs/php_codesniffer": "^2.5"
+    },
+    "suggest": {
+        "klaussilveira/simple-shm": "If you want to use the Gauge datatype."
     },
     "autoload": {
         "psr-4": {
