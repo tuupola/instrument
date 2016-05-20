@@ -23,7 +23,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
-        "squizlabs/php_codesniffer": "^2.5"
+        "squizlabs/php_codesniffer": "^2.5",
+        "klaussilveira/simple-shm": "^1.0"
     },
     "suggest": {
         "klaussilveira/simple-shm": "If you want to use the Gauge datatype."
