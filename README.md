@@ -1,10 +1,14 @@
-# [WIP] Application metrix toolbox for InfluxDB
+#  Instrument
+
+With instrument you can easily write PHP application metrics to an [InfluxDB](https://influxdata.com/) database. Example [Grafana](http://grafana.org/) dashboard included.
 
 [![Latest Version](https://img.shields.io/packagist/v/tuupola/instrument.svg?style=flat-square)](https://packagist.org/packages/tuupola/instrument)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/tuupola/instrument/master.svg?style=flat-square)](https://travis-ci.org/tuupola/instrument)
 [![HHVM Status](https://img.shields.io/hhvm/tuupola/instrument.svg?style=flat-square)](http://hhvm.h4cc.de/package/tuupola/instrument)
 [![Coverage](http://img.shields.io/codecov/c/github/tuupola/instrument.svg?style=flat-square)](https://codecov.io/github/tuupola/instrument)
+
+![Instrument](http://www.appelsiini.net/img/instrument-instrument-1400.png)
 
 ## Install
 
@@ -14,9 +18,9 @@ Install using [composer](https://getcomposer.org/).
 $ composer require tuupola/instrument
 ```
 
-## Quickstart
+## Setup
 
-Connect Instrument to your database and start sending data.
+After installing Instrument, connect it to your database and start sending data.
 
 ``` php
 $influxdb = InfluxDB\Client::fromDSN("http+influxdb://user:pass@localhost:8086/instrument");
