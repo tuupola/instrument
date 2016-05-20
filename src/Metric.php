@@ -19,5 +19,16 @@ interface Metric
 {
     public function setValue($value);
     public function getValue();
+    public function set($key, $value);
+    public function get($key);
+
+    public function setName($name);
+    public function getName();
+
     public function getType();
+
+    public function setTags(array $tags);
+    public function getTags();
+    public function addTag($key, $value);
+    public function removeTag($key);
 }
