@@ -1,16 +1,19 @@
 #  Instrument
 
-With instrument you can easily write PHP application metrics to an [InfluxDB](https://influxdata.com/) database. Example [Grafana](http://grafana.org/) dashboard included.
-
 [![Latest Version](https://img.shields.io/packagist/v/tuupola/instrument.svg?style=flat-square)](https://packagist.org/packages/tuupola/instrument)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/tuupola/instrument/master.svg?style=flat-square)](https://travis-ci.org/tuupola/instrument)
 [![HHVM Status](https://img.shields.io/hhvm/tuupola/instrument.svg?style=flat-square)](http://hhvm.h4cc.de/package/tuupola/instrument)
 [![Coverage](http://img.shields.io/codecov/c/github/tuupola/instrument.svg?style=flat-square)](https://codecov.io/github/tuupola/instrument)
 
+
+With instrument you can easily write PHP application metrics to an [InfluxDB](https://influxdata.com/) database. Example [Grafana](http://grafana.org/) dashboard included.
+
+
 ![Instrument](http://www.appelsiini.net/img/instrument-headline-1400.png)
 
-## Install
+
+## Setup
 
 Install using [composer](https://getcomposer.org/).
 
@@ -18,11 +21,11 @@ Install using [composer](https://getcomposer.org/).
 $ composer require tuupola/instrument
 ```
 
-## Setup
-
-After installing Instrument, connect it to your database and start sending data.
+After installing connect Instrument to your database and start sending data.
 
 ``` php
+require __DIR__ . "/vendor/autoload.php";
+
 $influxdb = InfluxDB\Client::fromDSN("http+influxdb://user:pass@localhost:8086/instrument");
 $instrument = new Instrument\Instrument([
     "adapter" => new Instrument\Adapter\InfluxDB($influxdb),
@@ -36,7 +39,7 @@ $instrument->send();
 
 ## Demo
 
-To see Instrument in action start the demo server and make some example requests. Then access the provided [demo dashboard](http://192.168.50.53:3000/dashboard/db/instrument) (admin:admin) to see live updating data.
+To see Instrument in action start the Vagrant demo server and make some example requests.
 
 ``` bash
 $ cd demo
@@ -44,12 +47,14 @@ $ vagrant up
 $ while sleep 1; do curl http://192.168.50.53/random; done
 ```
 
-![Grafana](http://www.appelsiini.net/img/instrument-grafana-1400.png)
+The above commands start the server and inserts random Instrument data every second.
+You can now access the provided [demo dashboard](http://192.168.50.53:3000/dashboard/db/instrument) (admin:admin) to see this happening live.
 
+![Grafana](http://www.appelsiini.net/img/instrument-grafana-1400.png)
 
 ## Concept
 
-Documentation assumes you have working knowledge of [InlfuxDB data structures](https://docs.influxdata.com/influxdb/v0.10/concepts/key_concepts/). Each measurement must have a `name`. Measurements should contain either one `value` or several value `fields` or both. Optionally measurement can have one or more `tags`.
+Documentation assumes you have working knowledge of [InlfuxDB data structures](https://docs.influxdata.com/influxdb/v0.13/concepts/key_concepts/). Each measurement must have a `name`. Measurements should contain either one `value` or several value `fields` or both. Optionally measurement can have one or more `tags`.
 
 For example to create a new `count` measurement with name `users` with one value of `100` use either of the following.
 
@@ -89,12 +94,16 @@ time                  total   active  host
 
 Count is the simplest datatype. In addition to setting the value you can also increment and decrement it.
 
-``` php
+```php
 $requests = $instrument->count("requests", 50); /* 50 */
 $requests->increment(); /* 51 */
 $requests->decrement(); /* 50 */
 $requests->increment(5); /* 55 */
+```
 
+Or if you prefer fluent interfaces you can also do the following.
+
+```php
 $instrument
   ->count("users")
   ->set("active", 27) /* 27 */
