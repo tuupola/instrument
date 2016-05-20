@@ -47,7 +47,7 @@ $ while sleep 1; do curl http://192.168.50.53/random; done
 
 Documentation assumes you have working knowledge of [InlfuxDB data structures](https://docs.influxdata.com/influxdb/v0.10/concepts/key_concepts/). Each measurement must have a `name`. Measurements should contain either one `value` or several value `fields` or both. Optionally measurement can have one or more `tags`.
 
-For example to create a new `count` measurement with name `users` with one value of `10` use either of the following.
+For example to create a new `count` measurement with name `users` with one value of `100` use either of the following.
 
 ``` php
 $instrument->count("users", 100);
