@@ -8,7 +8,7 @@ With instrument you can easily write PHP application metrics to an [InfluxDB](ht
 [![HHVM Status](https://img.shields.io/hhvm/tuupola/instrument.svg?style=flat-square)](http://hhvm.h4cc.de/package/tuupola/instrument)
 [![Coverage](http://img.shields.io/codecov/c/github/tuupola/instrument.svg?style=flat-square)](https://codecov.io/github/tuupola/instrument)
 
-![Instrument](http://www.appelsiini.net/img/instrument-instrument-1400.png)
+![Instrument](http://www.appelsiini.net/img/instrument-headline-1400.png)
 
 ## Install
 
