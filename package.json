@@ -1,6 +1,6 @@
 {
-  "name": "boombox",
-  "description": "Beacon toolkit for Boomerang",
+  "name": "instrument",
+  "description": "Application metrics toolbox for InfluxDB",
   "main": "Gruntfile.js",
   "dependencies": {},
   "devDependencies": {
@@ -17,17 +17,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tuupola/boombox.git"
+    "url": "git+https://github.com/tuupola/instrument.git"
   },
   "keywords": [
-    "Slim",
-    "API",
-    "Skeleton"
+    "metrics",
+    "InfluxDB"
   ],
   "author": "Mika Tuupola <tuupola@appelsiini.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tuupola/boombox/issues"
+    "url": "https://github.com/tuupola/instrument/issues"
   },
-  "homepage": "https://github.com/tuupola/boombox#readme"
+  "homepage": "https://github.com/tuupola/instrument"
 }
