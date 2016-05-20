@@ -100,19 +100,19 @@ $instrument
 
 ### Timing
 
-With timing you can measure execution time in milliseconds. You can either pass the value yourself or use the provided helpers.
+With timing you can measure execution time in milliseconds. You can either pass the value yourself or use the provided helpers to measure code execution time.
 
 ```php
 $instrument->timing("roundtrip")->set("firstbyte", 28);
 $instrument->timing("roundtrip")->set("lastbyte", 40);
 
 $instrument->timing("roundtrip")->set("processing", function () {
-    /* Here be dragons */
+    /* Code to be measured */
 });
 
-$instrument->timing("roundtrip")->start("sleep");
-/* Here be dragons */
-$instrument->timing("roundtrip")->stop("sleep");
+$instrument->timing("roundtrip")->start("fetching");
+/* Code to be measured */
+$instrument->timing("roundtrip")->stop("fetching");
 ```
 
 Since timing internally uses [symfony/stopwatch](https://github.com/symfony/stopwatch) you can get PHP memory usage as a bonus. It is not automatically included in the measurement data, but you can include it manually.
@@ -124,7 +124,11 @@ $instrument->timing("roundtrip")->set("memory", $memory);
 
 ### Gauge
 
-Gauge is same as count. However it remembers the value between requests. You need the [shmop extension](http://php.net/manual/en/book.shmop.php) to be able to use gauges.
+Gauge is same as count. However it remembers the value between requests. Gauge values are zeroed when server restarts. You need the [shmop extension](http://php.net/manual/en/book.shmop.php) and [klaussilveira/simple-shm](https://github.com/klaussilveira/SimpleSHM/) to be able to use gauges.
+
+```bash
+composer require klaussilveira/simple-shm
+```
 
 ## Testing
 
