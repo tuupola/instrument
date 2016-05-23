@@ -47,7 +47,7 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(["foo" => "bar"], $timing->getTags());
     }
 
-    public function testShouldAddAndRemoteTags()
+    public function testShouldAddAndRemoveTags()
     {
         $timing = new Timing();
         $timing->setTags(["foo" => "bar"]);
