@@ -24,6 +24,9 @@ class InfluxDB extends Base implements Transformer
     {
         $points = [];
         foreach ($measurements as $key => $value) {
+            if (is_integer($key)) {
+                $key = "{$value->name()}-{$key}";
+            }
             $points[$key] = new Point(
                 $value->name(),
                 $value->get("value"),

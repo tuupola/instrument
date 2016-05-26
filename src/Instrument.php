@@ -23,6 +23,7 @@ class Instrument
     private $adapter = null;
     private $transformer = null;
     private $measurements = [];
+    private $events = [];
     private $start = null;
     private $end = null;
 
@@ -64,10 +65,23 @@ class Instrument
         return $this->measurements[$name];
     }
 
+    public function event($title, $description = null)
+    {
+        $event = new Metric\Event([
+            "name" => "events",
+            "title" => $title,
+            "description" => $description
+        ]);
+        $this->events[] = $event;
+        return $event;
+    }
+
     public function send()
     {
         $measurements = $this->transformer->transform($this->measurements);
-        $this->adapter->send($measurements);
+        $events = $this->transformer->transform($this->events);
+        print_r($measurements + $events);
+        $this->adapter->send($measurements + $events);
     }
 
     public function setAdapter($adapter)

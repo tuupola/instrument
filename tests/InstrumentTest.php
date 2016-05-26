@@ -37,6 +37,12 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(9923, $gauge->get());
         $this->assertEquals(9923, $gauge->get("value"));
         $this->assertEquals(null, $gauge->get("nosuch"));
+
+        $event = $instrument->event("deploy", "Deployed by dopevs");
+        $this->assertEquals("deploy", $event->get());
+        $this->assertEquals("deploy", $event->get("title"));
+        $this->assertEquals("Deployed by dopevs", $event->get("description"));
+        $this->assertEquals(null, $event->get("nosuch"));
     }
 
     public function testShouldGetAndSetTransformer()
@@ -65,6 +71,8 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $count = $instrument->count("users", 10);
         $timing = $instrument->timing("roundtrip")->set("loadtime", 1432);
         $gauge = $instrument->gauge("tickets", 9923);
+        $event = $instrument->event("deploy", "Deployed by dopevs");
+        $event = $instrument->event("deploy", "Deployed again by dopevs");
 
         $instrument->send();
         $adapter = $instrument->adapter();
@@ -72,7 +80,8 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("users", $sent["users"]->getMeasurement());
         $this->assertEquals("roundtrip", $sent["roundtrip"]->getMeasurement());
-        $this->assertEquals("tickets", $sent["tickets"]->getMeasurement());
+        $this->assertEquals("events", $sent["events-0"]->getMeasurement());
+        $this->assertEquals("events", $sent["events-1"]->getMeasurement());
     }
 
     public function testShouldStartAndStopChainedTimer()
