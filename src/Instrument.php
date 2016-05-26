@@ -80,7 +80,6 @@ class Instrument
     {
         $measurements = $this->transformer->transform($this->measurements);
         $events = $this->transformer->transform($this->events);
-        print_r($measurements + $events);
         $this->adapter->send($measurements + $events);
     }
 
