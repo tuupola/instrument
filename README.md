@@ -37,7 +37,7 @@ $instrument->count("users", 100);
 $instrument->send();
 ```
 
-Optionally if you want to use Gauge you need the [shmop extension](http://php.net/manual/en/book.shmop.php) and install [klaussilveira/simple-shm](https://github.com/klaussilveira/SimpleSHM/).
+Optionally if you want to use the [gauge](https://github.com/tuupola/instrument#gauge) datatype you need the [shmop extension](http://php.net/manual/en/book.shmop.php) and install [klaussilveira/simple-shm](https://github.com/klaussilveira/SimpleSHM/).
 
 ```bash
 composer require klaussilveira/simple-shm
