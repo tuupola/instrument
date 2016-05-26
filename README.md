@@ -63,7 +63,7 @@ $instrument->count("users", 100);
 $instrument->count("users")->set(100);
 ```
 
-````
+```
 > SELECT * FROM users
 name: users
 ---------
@@ -75,18 +75,34 @@ To log several values and additionally tag the measurement.
 
 ``` php
 $instrument
-  ->count("users")
-  ->set("total", 100)
-  ->set("active", 27)
-  ->tags(["host" => "localhost"]);
+    ->count("users")
+    ->set("total", 100)
+    ->set("active", 27)
+    ->tags(["host" => "localhost"]);
 ```
 
-````
+```
 > SELECT * FROM users
 name: users
 ---------
 time                  total   active  host
-1457067288109134122	  100     27      localhost
+1457067288109134122   100     27      localhost
+```
+
+The event datatype does not contain numerical measurements.
+
+``` php
+$instrument
+    ->event("deploy", "New version deployed")
+    ->tags(["host" => "localhost"]);
+```
+
+```
+> SELECT * FROM events;
+name: events
+------------
+time                  title    description           host
+1464277178854200406   deploy   New version deployed  localhost
 ```
 
 ## Datatypes
@@ -96,9 +112,9 @@ Count is the simplest datatype. In addition to setting the value you can also in
 
 ```php
 $requests = $instrument->count("requests", 50); /* 50 */
-$requests->increment(); /* 51 */
-$requests->decrement(); /* 50 */
-$requests->increment(5); /* 55 */
+$requests->increase(); /* 51 */
+$requests->decrease(); /* 50 */
+$requests->increase(5); /* 55 */
 ```
 
 Or if you prefer fluent interfaces you can also do the following.
@@ -142,6 +158,52 @@ Gauge is same as count. However it remembers the value between requests. Gauge v
 ```bash
 composer require klaussilveira/simple-shm
 ```
+
+```php
+$errors = $instrument->gauge("errors");
+$errors->increase("fatal"); /* 1 */
+$errors->increase("critical"); /* 1 */
+
+unset($errors);
+
+$errors = $instrument->gauge("errors");
+$errors->increase("fatal"); /* 2 */
+$errors->increase("critical", 4); /* 5 */
+```
+
+Single value can be deleted from gauge with `delete()` method. All values can be deleted at once with `clear()` method.
+
+```php
+$errors = $instrument->gauge("errors");
+$errors->delete("fatal"); /* null */
+```
+
+### Event
+
+Events can be used to display [annotations](http://docs.grafana.org/reference/annotations/) in your dashboard. By default they do not contains numerical measurements. Instead it contains fields called `title` and `description` fields. These should contain a short name and longer description for the event.
+
+``` php
+$instrument
+    ->event("deploy", "Version 0.9.0 deployed")
+    ->tags(["host" => "localhost"]);
+
+$instrument
+    ->event("deploy", "New version 0.9.1 deployed")
+    ->tags(["host" => "localhost"]);
+```
+
+```
+> SELECT * FROM events;
+name: events
+------------
+time                  title    description             host
+1464277178854200406   deploy   Version 0.9.0 deployed  localhost
+1464277178854201240   deploy   Version 0.9.1 deployed  localhost
+```
+
+If you are using Grafana you can use above data by using `SELECT * FROM events WHERE $timeFilter` as the annotation query. Also set the column mappings as shown below.
+
+![Grafana](http://www.appelsiini.net/img/instrument-grafana-event-1400.png)
 
 ## Testing
 
