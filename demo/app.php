@@ -38,7 +38,7 @@ $container["instrument"] = function ($container) {
 };
 
 $app->get("/random", function ($request, $response, $arguments) {
-    $timing = $this->instrument->timing("response");
+    $timing = $this->instrument->timing("response")->tags(["host" => "localhost"]);;
 
     /* Emulate database queries. */
     $timing->start("database");
@@ -82,7 +82,7 @@ $app->get("/random", function ($request, $response, $arguments) {
 });
 
 $app->get("/event", function ($request, $response, $arguments) {
-    $event = $this->instrument->event("deploy", "New version deployed by dopevs.")->tags(["foo,bar"]);
+    $event = $this->instrument->event("deploy", "New version deployed by dopevs.")->tags(["host" => "localhost"]);
     $this->instrument->send();
 });
 
