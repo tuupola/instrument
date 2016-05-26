@@ -50,7 +50,7 @@ $ while sleep 1; do curl http://192.168.50.53/random; done
 The above commands start the server and inserts random Instrument data every second.
 You can now access the provided [demo dashboard](http://192.168.50.53:3000/dashboard/db/instrument) (admin:admin) to see this happening live.
 
-![Grafana](http://www.appelsiini.net/img/instrument-grafana-1400.png)
+![Grafana](http://www.appelsiini.net/img/instrument-grafana-1400-2.png)
 
 ## Concept
 
