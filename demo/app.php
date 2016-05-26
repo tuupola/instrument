@@ -43,7 +43,7 @@ $app->get("/random", function ($request, $response, $arguments) {
     /* Emulate database queries. */
     $timing->start("database");
 
-    $database = rand(7, 9) * 10000;
+    $database = rand(3, 9) * 10000;
     $database += rand(1, 100) * 100;
     usleep($database);
     print "database: {$database}us ";
@@ -59,7 +59,7 @@ $app->get("/random", function ($request, $response, $arguments) {
 
     /* Use some memory. */
     $dump = [];
-    $random = rand(2, 4);
+    $random = rand(1, 4);
     for ($i = 0 ; $i < $process; ++$i) {
         $dump[] = new StdClass;
     }
@@ -78,6 +78,11 @@ $app->get("/random", function ($request, $response, $arguments) {
     }
     print "\n";
 
+    $this->instrument->send();
+});
+
+$app->get("/event", function ($request, $response, $arguments) {
+    $event = $this->instrument->event("deploy", "New version deployed by dopevs.")->tags(["foo,bar"]);
     $this->instrument->send();
 });
 
