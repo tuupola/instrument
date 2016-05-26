@@ -37,6 +37,12 @@ $instrument->count("users", 100);
 $instrument->send();
 ```
 
+Optionally if you want to use Gauge you need the [shmop extension](http://php.net/manual/en/book.shmop.php) and install [klaussilveira/simple-shm](https://github.com/klaussilveira/SimpleSHM/).
+
+```bash
+composer require klaussilveira/simple-shm
+```
+
 ## Demo
 
 To see Instrument in action start the Vagrant demo server and make some example requests.
@@ -155,10 +161,6 @@ $instrument->timing("roundtrip")->set("memory", $memory);
 
 Gauge is same as count. However it remembers the value between requests. Gauge values are zeroed when server restarts. You need the [shmop extension](http://php.net/manual/en/book.shmop.php) and [klaussilveira/simple-shm](https://github.com/klaussilveira/SimpleSHM/) to be able to use gauges.
 
-```bash
-composer require klaussilveira/simple-shm
-```
-
 ```php
 $errors = $instrument->gauge("errors");
 $errors->increase("fatal"); /* 1 */
@@ -180,7 +182,7 @@ $errors->delete("fatal"); /* null */
 
 ### Event
 
-Events can be used to display [annotations](http://docs.grafana.org/reference/annotations/) in your dashboard. By default they do not contains numerical measurements. Instead it contains fields called `title` and `description` fields. These should contain a short name and longer description for the event.
+Events can be used to display [annotations](http://docs.grafana.org/reference/annotations/) in your dashboard. By default they do not contain numerical measurements. Instead it contains `title` and `description` fields. These should contain a short name and longer description for the event.
 
 ``` php
 $instrument
@@ -188,7 +190,7 @@ $instrument
     ->tags(["host" => "localhost"]);
 
 $instrument
-    ->event("deploy", "New version 0.9.1 deployed")
+    ->event("deploy", "Version 0.9.1 deployed")
     ->tags(["host" => "localhost"]);
 ```
 
