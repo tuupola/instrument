@@ -43,10 +43,14 @@ class Gauge extends Base implements Metric
         }
         $data = json_decode($this->memory->read(), true);
 
-        if (isset($data[$key])) {
-            $data[$key] += $amount;
-            $this->memory->write(json_encode($data));
+        /* If increasing unset key init it as 0. */
+        if (!isset($data[$key])) {
+            $data[$key] = 0;
         }
+
+        $data[$key] += $amount;
+        $this->memory->write(json_encode($data));
+
         return $this;
     }
 
@@ -56,12 +60,16 @@ class Gauge extends Base implements Metric
             $amount = $key;
             $key = "value";
         }
-
         $data = json_decode($this->memory->read(), true);
-        if (isset($data[$key])) {
-            $data[$key] -= $amount;
-            $this->memory->write(json_encode($data));
+
+        /* If decreasing unset key init it as 0. */
+        if (!isset($data[$key])) {
+            $data[$key] = 0;
         }
+
+        $data[$key] -= $amount;
+        $this->memory->write(json_encode($data));
+
         return $this;
     }
 

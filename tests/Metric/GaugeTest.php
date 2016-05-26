@@ -153,4 +153,26 @@ class GaugeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf("Simple\SHM\Block", $gauge->memory());
         $gauge->destroy();
     }
+
+    public function testShouldInitWhenIncreasing()
+    {
+        $gauge = new Gauge();
+
+        $gauge->increase();
+        $gauge->increase("users", 10);
+        $this->assertEquals(1, $gauge->get());
+        $this->assertEquals(10, $gauge->get("users"));
+        $gauge->destroy();
+    }
+
+    public function testShouldInitWhenDecreasing()
+    {
+        $gauge = new Gauge();
+
+        $gauge->decrease();
+        $gauge->decrease("users", 10);
+        $this->assertEquals(-1, $gauge->get());
+        $this->assertEquals(-10, $gauge->get("users"));
+        $gauge->destroy();
+    }
 }

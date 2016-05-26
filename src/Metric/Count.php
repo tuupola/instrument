@@ -25,6 +25,11 @@ class Count extends Base implements Metric
             $amount = $key;
             $key = "value";
         }
+
+        /* If increasing unset key init it as 0. */
+        if (!isset($this->value[$key])) {
+            $this->value[$key] = 0;
+        }
         $this->value[$key] += $amount;
         return $this;
     }
@@ -34,6 +39,11 @@ class Count extends Base implements Metric
         if (is_integer($key)) {
             $amount = $key;
             $key = "value";
+        }
+
+        /* If decresing unset key init it as 0. */
+        if (!isset($this->value[$key])) {
+            $this->value[$key] = 0;
         }
         $this->value[$key] -= $amount;
         return $this;

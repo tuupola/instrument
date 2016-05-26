@@ -87,4 +87,24 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $count = new Count();
         $this->assertEquals("count", $count->type());
     }
+
+    public function testShouldInitWhenIncreasing()
+    {
+        $count = new Count();
+
+        $count->increase();
+        $count->increase("users", 10);
+        $this->assertEquals(1, $count->get());
+        $this->assertEquals(10, $count->get("users"));
+    }
+
+    public function testShouldInitWhenDecreasing()
+    {
+        $count = new Count();
+
+        $count->decrease();
+        $count->decrease("users", 10);
+        $this->assertEquals(-1, $count->get());
+        $this->assertEquals(-10, $count->get("users"));
+    }
 }
