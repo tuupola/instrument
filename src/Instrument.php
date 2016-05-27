@@ -95,16 +95,18 @@ class Instrument
         return $this;
     }
 
-    public function clear() {
+    public function clear()
+    {
         $this->measurements = [];
         $this->events = [];
         return $this;
     }
 
-    public function delete($object) {
+    public function delete($object)
+    {
         if ($object instanceof \Instrument\Metric\Event) {
             /* All events have the same name, compare objects instead. */
-            $this->events = array_filter($this->events, function($event) use ($object) {
+            $this->events = array_filter($this->events, function ($event) use ($object) {
                 return $event !== $object;
             });
         } else {
