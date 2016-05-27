@@ -112,6 +112,29 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($events));
     }
 
+    public function testShouldSendSingle()
+    {
+        $instrument = new Instrument([
+            "transformer" => new Transformer\InfluxDB,
+            "adapter" => new Adapter\Memory
+        ]);
+
+        $count = $instrument->count("users", 10);
+        $timing = $instrument->timing("roundtrip")->set("loadtime", 1432);
+        $event = $instrument->event("deploy", "Deployed by dopevs");
+        $event = $instrument->event("deploy", "Deployed again by dopevs");
+
+        $instrument->send($timing);
+        $adapter = $instrument->adapter();
+        $sent = $adapter->measurements();
+
+        $this->assertArrayNotHasKey("users", $sent);
+        $this->assertArrayNotHasKey("events-0", $sent);
+        $this->assertArrayNotHasKey("events-1", $sent);
+
+        $this->assertEquals("roundtrip", $sent["roundtrip"]->getMeasurement());
+    }
+
     public function testShouldStartAndStopChainedTimer()
     {
         $instrument = new Instrument;
@@ -175,5 +198,45 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(20, $instrument->count("cars")->get("audi"));
         $this->assertEquals(30, $instrument->count("cars")->get("bmw"));
         $this->assertEquals(null, $instrument->count("cars")->get("nosuch"));
+    }
+
+    public function testShouldDeleteOneMeasurement()
+    {
+        $instrument = new Instrument;
+
+        $users = $instrument->count("users", 10);
+        $errors = $instrument->count("errors", 100);
+        $timing = $instrument->timing("roundtrip")->set("loadtime", 1432);
+
+        $measurements = $instrument->measurements();
+
+        $this->assertEquals(3, count($measurements));
+        $this->assertEquals(100, $measurements["errors"]->value());
+
+        $instrument->delete($errors);
+        $measurements = $instrument->measurements();
+        $this->assertEquals(2, count($measurements));
+        $this->assertArrayNotHasKey("errors", $measurements);
+    }
+
+    public function testShouldDeleteOneEvent()
+    {
+        $instrument = new Instrument;
+
+        $event1 = $instrument->event("deploy", "Deployed by dopevs");
+        $event2 = $instrument->event("deploy", "Deployed again by dopevs");
+        $event3 = $instrument->event("deploy", "Impossibru!");
+
+        $events = $instrument->events();
+
+        $this->assertEquals(3, count($events));
+
+        $instrument->delete($event2);
+        $events = $instrument->events();
+
+        $this->assertEquals(2, count($events));
+        $this->assertEquals("Deployed by dopevs", $events[0]->get("description"));
+        $this->assertArrayNotHasKey(1, $events);
+        $this->assertEquals("Impossibru!", $events[2]->get("description"));
     }
 }

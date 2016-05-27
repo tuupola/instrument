@@ -76,16 +76,42 @@ class Instrument
         return $event;
     }
 
-    public function send($clear = true)
+    public function send($object = null)
     {
-        $measurements = $this->transformer->transform($this->measurements);
-        $events = $this->transformer->transform($this->events);
-        $this->adapter->send($measurements + $events);
 
-        if (true === $clear) {
-            $this->measurements = [];
-            $this->events = [];
+        if (null === $object) {
+            /* Send all measurements and events. */
+            $measurements = $this->transformer->transform($this->measurements);
+            $events = $this->transformer->transform($this->events);
+            $this->adapter->send($measurements + $events);
+            $this->clear();
+        } else {
+            /* Send given measurement or event. */
+            $single = $this->transformer->transform([$object->name() => $object]);
+            $this->adapter->send($single);
+            $this->delete($object);
         }
+
+        return $this;
+    }
+
+    public function clear() {
+        $this->measurements = [];
+        $this->events = [];
+        return $this;
+    }
+
+    public function delete($object) {
+        if ($object instanceof \Instrument\Metric\Event) {
+            /* All events have the same name, compare objects instead. */
+            $this->events = array_filter($this->events, function($event) use ($object) {
+                return $event !== $object;
+            });
+        } else {
+            /* This is probably faster anyway. */
+            unset($this->measurements[$object->name()]);
+        }
+
         return $this;
     }
 
