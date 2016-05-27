@@ -37,7 +37,7 @@ $instrument->count("users", 100);
 $instrument->send();
 ```
 
-Optionally if you want to use the [gauge](https://github.com/tuupola/instrument#gauge) datatype you need the [shmop extension](http://php.net/manual/en/book.shmop.php) and install [klaussilveira/simple-shm](https://github.com/klaussilveira/SimpleSHM/).
+Optionally if you want to use the [gauge](https://github.com/tuupola/instrument#gauge) datatype you need the [shmop extension](http://php.net/manual/en/book.shmop.php) and  [klaussilveira/simple-shm](https://github.com/klaussilveira/SimpleSHM/) library.
 
 ```bash
 composer require klaussilveira/simple-shm
@@ -67,6 +67,7 @@ For example to create a new `count` measurement with name `users` with one value
 ``` php
 $instrument->count("users", 100);
 $instrument->count("users")->set(100);
+$instrument->send();
 ```
 
 ```
@@ -85,6 +86,8 @@ $instrument
     ->set("total", 100)
     ->set("active", 27)
     ->tags(["host" => "localhost"]);
+
+$instrument->send();
 ```
 
 ```
@@ -101,6 +104,8 @@ The event datatype does not contain numerical measurements.
 $instrument
     ->event("deploy", "New version deployed")
     ->tags(["host" => "localhost"]);
+
+$instrument->send();
 ```
 
 ```
@@ -121,6 +126,8 @@ $requests = $instrument->count("requests", 50); /* 50 */
 $requests->increase(); /* 51 */
 $requests->decrease(); /* 50 */
 $requests->increase(5); /* 55 */
+
+$instrument->send();
 ```
 
 Or if you prefer fluent interfaces you can also do the following.
@@ -131,6 +138,8 @@ $instrument
   ->set("active", 27) /* 27 */
   ->increase("active", 5) /* 32 */
   ->decrease("active", 2); /* 30 */
+
+$instrument->send();
 ```
 
 ### Timing
@@ -148,6 +157,8 @@ $instrument->timing("roundtrip")->set("processing", function () {
 $instrument->timing("roundtrip")->start("fetching");
 /* Code to be measured */
 $instrument->timing("roundtrip")->stop("fetching");
+
+$instrument->send();
 ```
 
 Since timing internally uses [symfony/stopwatch](https://github.com/symfony/stopwatch) you can get PHP memory usage as a bonus. It is not automatically included in the measurement data, but you can include it manually.
@@ -155,6 +166,8 @@ Since timing internally uses [symfony/stopwatch](https://github.com/symfony/stop
 ```php
 $memory = $instrument->timing("roundtrip")->memory()
 $instrument->timing("roundtrip")->set("memory", $memory);
+
+$instrument->send();
 ```
 
 ### Gauge
@@ -171,13 +184,16 @@ unset($errors);
 $errors = $instrument->gauge("errors");
 $errors->increase("fatal"); /* 2 */
 $errors->increase("critical", 4); /* 5 */
+
+$instrument->send();
 ```
 
-Single value can be deleted from gauge with `delete()` method. All values can be deleted at once with `clear()` method.
+Single value can be deleted from shared memory with `delete()` method. All values of the named gauge can be deleted at once with `clear()` method.
 
 ```php
 $errors = $instrument->gauge("errors");
 $errors->delete("fatal"); /* null */
+$errors->clear();
 ```
 
 ### Event
@@ -192,6 +208,8 @@ $instrument
 $instrument
     ->event("deploy", "Version 0.9.1 deployed")
     ->tags(["host" => "localhost"]);
+
+$instrument->send();
 ```
 
 ```
