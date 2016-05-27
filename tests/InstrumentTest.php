@@ -84,6 +84,34 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("events", $sent["events-1"]->getMeasurement());
     }
 
+    public function testShouldClearAfterSend()
+    {
+        $instrument = new Instrument([
+            "transformer" => new Transformer\InfluxDB,
+            "adapter" => new Adapter\Memory
+        ]);
+
+        $count = $instrument->count("users", 10);
+        $timing = $instrument->timing("roundtrip")->set("loadtime", 1432);
+        $gauge = $instrument->gauge("tickets", 9923);
+        $event = $instrument->event("deploy", "Deployed by dopevs");
+        $event = $instrument->event("deploy", "Deployed again by dopevs");
+
+        $measurements = $instrument->measurements();
+        $events = $instrument->events();
+
+        $this->assertEquals(3, count($measurements));
+        $this->assertEquals(2, count($events));
+
+        $instrument->send();
+
+        $measurements = $instrument->measurements();
+        $events = $instrument->events();
+
+        $this->assertEquals(0, count($measurements));
+        $this->assertEquals(0, count($events));
+    }
+
     public function testShouldStartAndStopChainedTimer()
     {
         $instrument = new Instrument;

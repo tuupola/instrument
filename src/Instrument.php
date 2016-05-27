@@ -76,11 +76,17 @@ class Instrument
         return $event;
     }
 
-    public function send()
+    public function send($clear = true)
     {
         $measurements = $this->transformer->transform($this->measurements);
         $events = $this->transformer->transform($this->events);
         $this->adapter->send($measurements + $events);
+
+        if (true === $clear) {
+            $this->measurements = [];
+            $this->events = [];
+        }
+        return $this;
     }
 
     public function setAdapter($adapter)
@@ -103,5 +109,15 @@ class Instrument
     public function getTransformer()
     {
         return $this->transformer;
+    }
+
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    public function getMeasurements()
+    {
+        return $this->measurements;
     }
 }
