@@ -165,4 +165,21 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($timing->get());
         $this->assertNull($timing->memory());
     }
+
+    public function testShouldStopAllTimers()
+    {
+        $timing = new Timing;
+        $timing->start("first");
+        usleep(10000);
+        $timing->start("second");
+        usleep(10000);
+
+        $this->assertNull($timing->get("first"));
+        $this->assertNull($timing->get("second"));
+
+        $timing->stopAll();
+
+        $this->assertEquals($timing->get("first"), 20, null, self::DELTA);
+        $this->assertEquals($timing->get("second"), 10, null, self::DELTA);
+    }
 }

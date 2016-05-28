@@ -81,6 +81,7 @@ class Instrument
 
         if (null === $object) {
             /* Send all measurements and events. */
+            $this->stopTimers();
             $measurements = $this->transformer->transform($this->measurements);
             $events = $this->transformer->transform($this->events);
             $this->adapter->send($measurements + $events);
@@ -102,7 +103,17 @@ class Instrument
         return $this;
     }
 
-    public function delete($object)
+    public function stopTimers()
+    {
+        foreach ($this->measurements as $measurement) {
+            if ($measurement instanceof \Instrument\Metric\Timing) {
+                $measurement->stopAll();
+            }
+        }
+        return $this;
+    }
+
+    public function delete(Metric $object)
     {
         if ($object instanceof \Instrument\Metric\Event) {
             /* All events have the same name, compare objects instead. */

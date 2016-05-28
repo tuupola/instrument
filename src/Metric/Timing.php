@@ -18,6 +18,7 @@ namespace Instrument\Metric;
 use Closure;
 use Instrument\Metric;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class Timing extends Base implements Metric
 {
@@ -25,6 +26,7 @@ class Timing extends Base implements Metric
 
     private $stopwatch = null;
     private $memory = null;
+    private $keys = [];
 
     public function __construct($options = [])
     {
@@ -35,6 +37,7 @@ class Timing extends Base implements Metric
     public function start($key = "value")
     {
         $this->stopwatch->start($key);
+        array_push($this->keys, $key);
         return $this;
     }
 
@@ -45,6 +48,14 @@ class Timing extends Base implements Metric
             $duration = $event->getDuration();
             $this->memory = $event->getMemory();
             $this->set($key, $duration);
+        }
+        return $this;
+    }
+
+    public function stopAll()
+    {
+        foreach ($this->keys as $key) {
+            $this->stop($key);
         }
         return $this;
     }

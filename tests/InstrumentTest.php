@@ -239,4 +239,25 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey(1, $events);
         $this->assertEquals("Impossibru!", $events[2]->get("description"));
     }
+
+    public function testShouldStopTimers()
+    {
+        $instrument = new Instrument;
+
+        $instrument->timing("roundtrip")->start("first");
+        usleep(10000);
+        $instrument->timing("roundtrip")->start("second");
+        $instrument->timing("bootstrap")->start();
+        usleep(10000);
+
+        $this->assertNull($instrument->timing("roundtrip")->get("first"));
+        $this->assertNull($instrument->timing("roundtrip")->get("second"));
+        $this->assertNull($instrument->timing("bootstrap")->get());
+
+        $instrument->stopTimers();
+
+        $this->assertEquals($instrument->timing("roundtrip")->get("first"), 20, null, self::DELTA);
+        $this->assertEquals($instrument->timing("roundtrip")->get("second"), 10, null, self::DELTA);
+        $this->assertEquals($instrument->timing("bootstrap")->get(), 10, null, self::DELTA);
+    }
 }
