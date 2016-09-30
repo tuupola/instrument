@@ -7,13 +7,12 @@
 [![Coverage](http://img.shields.io/codecov/c/github/tuupola/instrument.svg?style=flat-square)](https://codecov.io/github/tuupola/instrument)
 
 
-With instrument you can easily write PHP application metrics to an [InfluxDB](https://influxdata.com/) database. Example [Grafana](http://grafana.org/) dashboard included.
-
+With Instrument you can monitor and measure your PHP application performance. It can collect and store metrics such as script execution time and memory usage or time spent in database.
 
 ![Instrument](http://www.appelsiini.net/img/instrument-headline-1400.png)
 
 
-## Setup
+## Usage
 
 Install using [composer](https://getcomposer.org/).
 
@@ -21,7 +20,7 @@ Install using [composer](https://getcomposer.org/).
 $ composer require tuupola/instrument
 ```
 
-After installing connect Instrument to your database and start sending data.
+You also must have access to [InfluxDB](https://influxdata.com/) database to store the data. After installing connect to your database and start sending metrics.
 
 ``` php
 require __DIR__ . "/vendor/autoload.php";
@@ -45,7 +44,7 @@ composer require klaussilveira/simple-shm
 
 ## Demo
 
-To see Instrument in action start the Vagrant demo server and make some example requests.
+Example [Grafana](http://grafana.org/) dashboard is included. To see Instrument in action start the Vagrant demo server and make some example requests.
 
 ``` bash
 $ cd demo
@@ -58,9 +57,9 @@ You can now access the provided [demo dashboard](http://192.168.50.53:3000/dashb
 
 ![Grafana](http://www.appelsiini.net/img/instrument-grafana-1400-2.png)
 
-## Concept
+## Writing data
 
-Documentation assumes you have working knowledge of [InlfuxDB data structures](https://docs.influxdata.com/influxdb/v0.13/concepts/key_concepts/). Each measurement must have a `name`. Measurements should contain either one `value` or several value `fields` or both. Optionally measurement can have one or more `tags`.
+Documentation assumes you have working knowledge of [InfluxDB data structures](https://docs.influxdata.com/influxdb/v1.0/concepts/key_concepts/). Each measurement must have a `name`. Measurements should contain either one `value` or several value `fields` or both. Optionally measurement can have one or more `tags`.
 
 For example to create a new `count` measurement with name `users` with one value of `100` use either of the following.
 
@@ -75,7 +74,7 @@ $instrument->send();
 name: users
 ---------
 time                  value
-1457067288109133121	  100
+1457067288109133121    100
 ```
 
 To log several values and additionally tag the measurement.
