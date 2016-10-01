@@ -42,6 +42,8 @@ Optionally if you want to use the [gauge](https://github.com/tuupola/instrument#
 composer require klaussilveira/simple-shm
 ```
 
+There is also a [companion middleware](https://github.com/tuupola/instrument-middleware) which can automate basic instrumenting of application code if you are using PSR-7 based framework.
+
 ## Demo
 
 Example [Grafana](http://grafana.org/) dashboard is included. To see Instrument in action start the Vagrant demo server and make some example requests.
