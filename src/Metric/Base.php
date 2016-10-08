@@ -102,6 +102,12 @@ abstract class Base implements Metric
         return $this;
     }
 
+    public function addTags(array $tags)
+    {
+        $this->tags = array_merge($this->tags, $tags);
+        return $this;
+    }
+
     public function removeTag($key)
     {
         unset($this->tags[$key]);

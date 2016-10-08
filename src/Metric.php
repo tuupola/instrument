@@ -30,5 +30,6 @@ interface Metric
     public function setTags(array $tags);
     public function getTags();
     public function addTag($key, $value);
+    public function addTags(array $tags);
     public function removeTag($key);
 }

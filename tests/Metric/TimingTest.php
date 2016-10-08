@@ -58,6 +58,15 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(["hit" => "pop"], $timing->getTags());
     }
 
+    public function testShouldAddMultipleTags()
+    {
+        $timing = new Timing();
+        $timing->setTags(["foo" => "bar"]);
+        $this->assertEquals(["foo" => "bar"], $timing->getTags());
+        $timing->addTags(["hit" => "pop", "baz" => "com"]);
+        $this->assertEquals(["foo" => "bar", "hit" => "pop", "baz" => "com"], $timing->getTags());
+    }
+
     public function testShouldBeChainable()
     {
         $timing = new Timing();
