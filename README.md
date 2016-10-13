@@ -28,7 +28,7 @@ require __DIR__ . "/vendor/autoload.php";
 $influxdb = InfluxDB\Client::fromDSN("http+influxdb://user:pass@localhost:8086/instrument");
 $instrument = new Instrument\Instrument([
     "adapter" => new Instrument\Adapter\InfluxDB($influxdb),
-    "transformer" => new Instrument\Transformer\InfluxDB
+    "transformer" => new Instrument\Transformer\InfluxDBPoint
 ]);
 
 $instrument->count("users", 100);

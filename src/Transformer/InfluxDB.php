@@ -18,23 +18,8 @@ namespace Instrument\Transformer;
 use Instrument\Transformer;
 use InfluxDB\Point;
 
-class InfluxDB extends Base implements Transformer
+class InfluxDB extends InfluxDBPoint implements Transformer
 {
-    public function transform(array $measurements)
-    {
-        $points = [];
-        foreach ($measurements as $key => $value) {
-            if (is_integer($key)) {
-                $key = "{$value->name()}-{$key}";
-            }
-            $points[$key] = new Point(
-                $value->name(),
-                $value->get("value"),
-                $value->tags(),
-                $value->fields(),
-                null
-            );
-        }
-        return $points;
-    }
+    /* This is only to maintain BC. */
 }
+
