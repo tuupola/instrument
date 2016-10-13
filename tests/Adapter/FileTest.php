@@ -21,7 +21,6 @@ use Instrument\Metric\Gauge;
 
 use Instrument\Transformer\InfluxDBLineProtocol as Transformer;
 
-
 class FileTest extends \PHPUnit_Framework_TestCase
 {
 

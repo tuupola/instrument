@@ -22,7 +22,7 @@ class File extends Base implements Adapter
 {
     protected $file;
 
-    public function __construct($file =  "/tmp/instrument.txt")
+    public function __construct($file = "/tmp/instrument.txt")
     {
         $this->setFile($file);
     }

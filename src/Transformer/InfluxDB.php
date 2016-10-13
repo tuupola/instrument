@@ -22,4 +22,3 @@ class InfluxDB extends InfluxDBPoint implements Transformer
 {
     /* This is only to maintain BC. */
 }
-
