@@ -38,8 +38,3 @@ class InfluxDBLineProtocol extends Base implements Transformer
         return $points;
     }
 }
-
-//1422568543702900257
-//1476377360580
-//  1422568543702900257
-//1476377179.9691
