@@ -49,6 +49,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("users value=10i", $sent["users"]);
         $this->assertEquals("roundtrip loadtime=1432i", $sent["roundtrip-0"]);
         $this->assertEquals("roundtrip loadtime=1234i", $sent["roundtrip-1"]);
-        $this->assertEquals("tickets current=400i,value=9923i", $sent["tickets"]);
+        $this->assertEquals("tickets value=9923i", $sent["tickets"]);
     }
 }
