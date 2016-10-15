@@ -38,5 +38,8 @@
         "psr-4": {
             "Instrument\\": "tests"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpcs --standard=PSR2 src/ tests/ -p && vendor/bin/phpunit"
     }
 }
