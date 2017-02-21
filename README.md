@@ -231,15 +231,13 @@ If you are using Grafana you can use above data by using `SELECT * FROM events W
 You can run tests either manually...
 
 ``` bash
-$ vendor/bin/phpunit
-$ vendor/bin/phpcs --standard=PSR2 src/ -p
+$ composer test
 ```
 
-... or automatically on every code change.
+... or automatically on every code change. This requires [entr](http://entrproject.org/) to work.
 
 ``` bash
-$ npm install
-$ grunt watch
+$ composer watch
 ```
 
 ## Contributing
