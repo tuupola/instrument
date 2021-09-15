@@ -8,7 +8,7 @@
 
 With Instrument you can monitor and measure your PHP application performance. It can collect and store metrics such as script execution time and memory usage or time spent in database.
 
-![Instrument](http://www.appelsiini.net/img/instrument-headline-1400.png)
+![Instrument](https://appelsiini.net/img/instrument-headline-1400.png)
 
 
 ## Usage
