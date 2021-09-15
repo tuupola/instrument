@@ -20,16 +20,14 @@ use InfluxDB\Database;
 
 class InfluxDB extends Base implements Adapter
 {
-    use \Witchcraft\MagicMethods;
-
     public function __construct(Database $client)
     {
-        $this->setClient($client);
+        $this->client($client);
     }
 
     public function send(array $points = [])
     {
-        $this->setMeasurements($points);
+        $this->measurements($points);
         return $this->client->writePoints($points);
     }
 }
