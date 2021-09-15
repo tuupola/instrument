@@ -19,8 +19,6 @@ use Instrument\Adapter;
 
 abstract class Base implements Adapter
 {
-    //use \Witchcraft\MagicMethods;
-
     protected $measurements = [];
     protected $client = null;
 
