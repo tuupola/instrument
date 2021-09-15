@@ -17,18 +17,21 @@ namespace Instrument;
 
 class Instrument
 {
-    use \Witchcraft\Hydrate;
-
-    private $adapter = null;
-    private $transformer = null;
-    private $measurements = [];
-    private $events = [];
-    private $start = null;
-    private $end = null;
+    private $adapter;
+    private $transformer;
+    private $measurements;
+    private $events;
+    private $start;
+    private $end;
 
     public function __construct($options = [])
     {
-        $this->hydrate($options);
+        $this->adapter = $options["adapter"] ?? null;
+        $this->transformer = $options["transformer"] ?? null;
+        $this->measurements = $options["measurements"] ?? [];
+        $this->events = $options["events"] ?? [];
+        $this->start = $options["adapter"] ?? null;
+        $this->end = $options["adapter"] ?? null;
     }
 
     public function timing($name, $value = null)
