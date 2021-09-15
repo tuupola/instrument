@@ -22,8 +22,6 @@ use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class Timing extends Base implements Metric
 {
-    use \Witchcraft\MagicProperties;
-
     private $stopwatch = null;
     private $memory = null;
     private $keys = [];
