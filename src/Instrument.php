@@ -18,7 +18,6 @@ namespace Instrument;
 class Instrument
 {
     use \Witchcraft\Hydrate;
-    use \Witchcraft\MagicMethods;
 
     private $adapter = null;
     private $transformer = null;
@@ -134,28 +133,25 @@ class Instrument
         return $this;
     }
 
-    public function getAdapter()
+    public function adapter()
     {
         return $this->adapter;
     }
 
-    public function setTransformer($transformer)
-    {
+    public function transformer($transformer = null) {
+        if (null === $transformer) {
+            return $this->transformer;
+        }
         $this->transformer = $transformer;
         return $this;
     }
 
-    public function getTransformer()
-    {
-        return $this->transformer;
-    }
-
-    public function getEvents()
+    public function events()
     {
         return $this->events;
     }
 
-    public function getMeasurements()
+    public function measurements()
     {
         return $this->measurements;
     }
