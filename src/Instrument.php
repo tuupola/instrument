@@ -127,12 +127,6 @@ class Instrument
         return $this;
     }
 
-    public function setAdapter($adapter)
-    {
-        $this->adapter = $adapter;
-        return $this;
-    }
-
     public function adapter()
     {
         return $this->adapter;
@@ -153,6 +147,50 @@ class Instrument
 
     public function measurements()
     {
+        return $this->measurements;
+    }
+
+    /** @deprecated */
+    public function setAdapter($adapter)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $this->adapter = $adapter;
+        return $this;
+    }
+
+    /** @deprecated */
+    public function getAdapter()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->adapter;
+    }
+
+    /** @deprecated */
+    public function setTransformer($transformer)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $this->transformer = $transformer;
+        return $this;
+    }
+
+    /** @deprecated */
+    public function getTransformer()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->transformer;
+    }
+
+    /** @deprecated */
+    public function getEvents()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->events;
+    }
+
+    /** @deprecated */
+    public function getMeasurements()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return $this->measurements;
     }
 }
