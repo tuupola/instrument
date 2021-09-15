@@ -15,7 +15,9 @@
 
 namespace Instrument\Metric;
 
-class CountTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class CountTest extends TestCase
 {
     public function testShouldSetAndGetValue()
     {

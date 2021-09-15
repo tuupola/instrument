@@ -15,7 +15,9 @@
 
 namespace Instrument\Metric;
 
-class TimingTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class TimingTest extends TestCase
 {
     const DELTA = 10;
 
@@ -88,8 +90,8 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         usleep(30000);
         $timing->stop("jump");
 
-        $this->assertEquals($timing->get(), 20, null, self::DELTA);
-        $this->assertEquals($timing->get("jump"), 30, null, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get(), 20, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get("jump"), 30, self::DELTA);
     }
 
     public function testShouldStartAndStopMultipleTimes()
@@ -98,21 +100,21 @@ class TimingTest extends \PHPUnit_Framework_TestCase
         $timing->start("multipass");
         usleep(10000);
         $timing->stop("multipass");
-        $this->assertEquals($timing->get("multipass"), 10, null, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get("multipass"), 10, self::DELTA);
 
         sleep(1);
 
         $timing->start("multipass");
         usleep(10000);
         $timing->stop("multipass");
-        $this->assertEquals($timing->get("multipass"), 20, null, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get("multipass"), 20, self::DELTA);
 
         sleep(1);
 
         $timing->start("multipass");
         usleep(10000);
         $timing->stop("multipass");
-        $this->assertEquals($timing->get("multipass"), 30, null, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get("multipass"), 30, self::DELTA);
     }
 
     public function testShouldMeasureClosure()
@@ -128,9 +130,9 @@ class TimingTest extends \PHPUnit_Framework_TestCase
             usleep(15000);
         });
 
-        $this->assertEquals($timing->get(), 20, null, self::DELTA);
-        $this->assertEquals($timing->get("dive"), 30, null, self::DELTA);
-        $this->assertEquals($timing->get("fly"), 15, null, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get(), 20, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get("dive"), 30, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get("fly"), 15, self::DELTA);
     }
 
     public function testClosureShouldReturn()
@@ -162,7 +164,7 @@ class TimingTest extends \PHPUnit_Framework_TestCase
             usleep(10000);
         });
 
-        $this->assertEquals($timing->get(), 10, null, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get(), 10, self::DELTA);
         $this->assertGreaterThan(0, $timing->memory());
     }
 
@@ -188,7 +190,7 @@ class TimingTest extends \PHPUnit_Framework_TestCase
 
         $timing->stopAll();
 
-        $this->assertEquals($timing->get("first"), 20, null, self::DELTA);
-        $this->assertEquals($timing->get("second"), 10, null, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get("first"), 20, self::DELTA);
+        $this->assertEqualsWithDelta($timing->get("second"), 10, self::DELTA);
     }
 }

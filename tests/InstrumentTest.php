@@ -15,7 +15,9 @@
 
 namespace Instrument;
 
-class InstrumentTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class InstrumentTest extends TestCase
 {
 
     const DELTA = 10;
@@ -147,8 +149,8 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
         usleep(20000);
         $instrument->timing("test")->stop("jump");
 
-        $this->assertEquals($instrument->timing("test")->get(), 10, null, self::DELTA);
-        $this->assertEquals($instrument->timing("test")->get("jump"), 20, null, self::DELTA);
+        $this->assertEqualsWithDelta($instrument->timing("test")->get(), 10, self::DELTA);
+        $this->assertEqualsWithDelta($instrument->timing("test")->get("jump"), 20, self::DELTA);
     }
 
     public function testShouldMeasureChainedClosure()
@@ -161,8 +163,8 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
             usleep(20000);
         });
 
-        $this->assertEquals($instrument->timing("test")->get(), 10, null, self::DELTA);
-        $this->assertEquals($instrument->timing("test")->get("dive"), 20, null, self::DELTA);
+        $this->assertEqualsWithDelta($instrument->timing("test")->get(), 10, self::DELTA);
+        $this->assertEqualsWithDelta($instrument->timing("test")->get("dive"), 20, self::DELTA);
     }
 
     public function testShouldReturnExistingMeasurement()
@@ -256,8 +258,8 @@ class InstrumentTest extends \PHPUnit_Framework_TestCase
 
         $instrument->stopTimers();
 
-        $this->assertEquals($instrument->timing("roundtrip")->get("first"), 20, null, self::DELTA);
-        $this->assertEquals($instrument->timing("roundtrip")->get("second"), 10, null, self::DELTA);
-        $this->assertEquals($instrument->timing("bootstrap")->get(), 10, null, self::DELTA);
+        $this->assertEqualsWithDelta($instrument->timing("roundtrip")->get("first"), 20, self::DELTA);
+        $this->assertEqualsWithDelta($instrument->timing("roundtrip")->get("second"), 10, self::DELTA);
+        $this->assertEqualsWithDelta($instrument->timing("bootstrap")->get(), 10, self::DELTA);
     }
 }

@@ -2,14 +2,13 @@
 
 [![Latest Version](https://img.shields.io/packagist/v/tuupola/instrument.svg?style=flat-square)](https://packagist.org/packages/tuupola/instrument)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/tuupola/instrument/master.svg?style=flat-square)](https://travis-ci.org/tuupola/instrument)
-[![HHVM Status](https://img.shields.io/hhvm/tuupola/instrument.svg?style=flat-square)](http://hhvm.h4cc.de/package/tuupola/instrument)
-[![Coverage](http://img.shields.io/codecov/c/github/tuupola/instrument.svg?style=flat-square)](https://codecov.io/github/tuupola/instrument)
+[![Build Status](https://img.shields.io/github/workflow/status/instrument/Tests/master?style=flat-square)](https://github.com/instrument/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/tuupola/instrument.svg?style=flat-square)](https://codecov.io/github/tuupola/instrument)
 
 
 With Instrument you can monitor and measure your PHP application performance. It can collect and store metrics such as script execution time and memory usage or time spent in database.
 
-![Instrument](http://www.appelsiini.net/img/instrument-headline-1400.png)
+![Instrument](https://appelsiini.net/img/instrument-headline-1400.png)
 
 
 ## Usage

@@ -18,8 +18,9 @@ namespace Instrument\Adapter;
 use Instrument\Metric\Count;
 use Instrument\Metric\Timing;
 use Instrument\Metric\Gauge;
+use PHPUnit\Framework\TestCase;
 
-class MemoryTest extends \PHPUnit_Framework_TestCase
+class MemoryTest extends TestCase
 {
 
     public function testShouldSetAndGetClient()

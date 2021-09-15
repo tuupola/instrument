@@ -15,7 +15,9 @@
 
 namespace Instrument\Metric;
 
-class GaugeTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class GaugeTest extends TestCase
 {
     public function testShouldSetAndGetName()
     {
