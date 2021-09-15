@@ -75,6 +75,7 @@ abstract class Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setValue($key, $value = null)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -87,6 +88,7 @@ abstract class Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getValue($key = "value")
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -104,6 +106,7 @@ abstract class Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getFields()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -121,6 +124,7 @@ abstract class Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setTags(array $tags)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -129,6 +133,7 @@ abstract class Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getTags()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -154,6 +159,7 @@ abstract class Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setName($name)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -162,6 +168,7 @@ abstract class Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getName()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);

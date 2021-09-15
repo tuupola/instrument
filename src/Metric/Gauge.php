@@ -123,6 +123,7 @@ class Gauge extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setValue($key, $value = null)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -139,6 +140,7 @@ class Gauge extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getValue($key = "value")
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -157,6 +159,7 @@ class Gauge extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getFields()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -175,6 +178,7 @@ class Gauge extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setMemory(SharedMemory $memory)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -183,6 +187,7 @@ class Gauge extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getMemory()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -195,6 +200,7 @@ class Gauge extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getType()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);

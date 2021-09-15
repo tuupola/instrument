@@ -71,6 +71,7 @@ class Timing extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setValue($key, $value = null)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -115,6 +116,7 @@ class Timing extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getMemory()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -127,6 +129,7 @@ class Timing extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getType()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);

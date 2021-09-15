@@ -154,6 +154,7 @@ class Instrument
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setAdapter($adapter)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -162,6 +163,7 @@ class Instrument
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getAdapter()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -169,6 +171,7 @@ class Instrument
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setTransformer($transformer)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -177,6 +180,7 @@ class Instrument
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getTransformer()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -184,6 +188,7 @@ class Instrument
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getEvents()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -191,6 +196,7 @@ class Instrument
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getMeasurements()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);

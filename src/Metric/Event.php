@@ -37,7 +37,13 @@ class Event extends Base implements Metric
         return $this;
     }
 
+    public function type()
+    {
+        return "event";
+    }
+
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getValue($key = "title")
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -48,6 +54,7 @@ class Event extends Base implements Metric
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setValue($key, $value = null)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -59,12 +66,8 @@ class Event extends Base implements Metric
         return $this;
     }
 
-    public function type()
-    {
-        return "event";
-    }
-
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getType()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);

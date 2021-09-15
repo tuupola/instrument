@@ -50,6 +50,7 @@ abstract class Base implements Adapter
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setClient($client = null)
     {
         $this->client = $client;
@@ -57,6 +58,7 @@ abstract class Base implements Adapter
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getClient()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -64,6 +66,7 @@ abstract class Base implements Adapter
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setMeasurements(array $measurements)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
@@ -72,6 +75,7 @@ abstract class Base implements Adapter
     }
 
     /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getMeasurements()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
