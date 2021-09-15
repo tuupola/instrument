@@ -27,7 +27,7 @@ class Gauge extends Base implements Metric
     {
         $id = ftok(__FILE__, "i");
         $memory = new SharedMemory($id);
-        $this->setMemory($memory);
+        $this->memory($memory);
         if (!$this->memory->exists($id)) {
             $this->memory->write(json_encode([]));
         }
@@ -99,7 +99,7 @@ class Gauge extends Base implements Metric
         return $this;
     }
 
-    public function setValue($key, $value = null)
+    public function set($key, $value = null)
     {
         if (null === $value) {
             $value = $key;
@@ -113,7 +113,7 @@ class Gauge extends Base implements Metric
         return $this;
     }
 
-    public function getValue($key = "value")
+    public function get($key = "value")
     {
         $data = json_decode($this->memory->read(), true);
         if (isset($data[$key])) {
@@ -122,26 +122,82 @@ class Gauge extends Base implements Metric
         return null;
     }
 
-    public function getFields()
+    /** @deprecated */
+    public function setValue($key, $value = null)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        if (null === $value) {
+            $value = $key;
+            $key = "value";
+        }
+
+        $data = json_decode($this->memory->read(), true);
+        $data[$key] = $value;
+        $this->memory->write(json_encode($data));
+
+        return $this;
+    }
+
+    /** @deprecated */
+    public function getValue($key = "value")
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $data = json_decode($this->memory->read(), true);
+        if (isset($data[$key])) {
+            return $data[$key];
+        }
+        return null;
+    }
+
+    public function fields()
     {
         $fields = json_decode($this->memory->read(), true);
         unset($fields["value"]);
         return $fields;
     }
 
-    public function setMemory(SharedMemory $memory)
+    /** @deprecated */
+    public function getFields()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $fields = json_decode($this->memory->read(), true);
+        unset($fields["value"]);
+        return $fields;
+    }
+
+    public function memory(SharedMemory $memory = null)
+    {
+        if (null === $memory) {
+            return $this->memory;
+        }
         $this->memory = $memory;
         return $this;
     }
 
+    /** @deprecated */
+    public function setMemory(SharedMemory $memory)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $this->memory = $memory;
+        return $this;
+    }
+
+    /** @deprecated */
     public function getMemory()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return $this->memory;
     }
 
+    public function type()
+    {
+        return "gauge";
+    }
+
+    /** @deprecated */
     public function getType()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return "gauge";
     }
 }

@@ -72,7 +72,25 @@ class Timing extends Base implements Metric
         return $return;
     }
 
+    /** @deprecated */
     public function setValue($key, $value = null)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        if (null === $value) {
+            $value = $key;
+            $key = "value";
+        }
+
+        /* Allow calling $timing->set("fly", function () {...}) */
+        if ($value instanceof Closure) {
+            $this->closure($key, $value);
+        } else {
+            $this->value[$key] = $value;
+        }
+        return $this;
+    }
+
+    public function set($key, $value = null)
     {
         if (null === $value) {
             $value = $key;
@@ -93,13 +111,27 @@ class Timing extends Base implements Metric
         return $this->stopwatch;
     }
 
-    public function getMemory()
+    public function memory()
     {
         return $this->memory;
     }
 
+    /** @deprecated */
+    public function getMemory()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->memory;
+    }
+
+    public function type()
+    {
+        return "timing";
+    }
+
+    /** @deprecated */
     public function getType()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return "timing";
     }
 }
