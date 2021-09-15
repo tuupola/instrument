@@ -19,8 +19,9 @@ use Instrument\Metric\Count;
 use Instrument\Metric\Timing;
 use Instrument\Metric\Gauge;
 use Instrument\Transformer\InfluxDB as Transformer;
+use PHPUnit\Framework\TestCase;
 
-class InfluxDBTest extends \PHPUnit_Framework_TestCase
+class InfluxDBTest extends TestCase
 {
 
     public function testShouldSetAndGetClient()

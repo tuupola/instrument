@@ -17,8 +17,9 @@ namespace Instrument\Transformer;
 
 use Instrument\Metric\Count;
 use Instrument\Metric\Gauge;
+use PHPUnit\Framework\TestCase;
 
-class InfluxDBTest extends \PHPUnit_Framework_TestCase
+class InfluxDBTest extends TestCase
 {
     public function testShouldTransform()
     {

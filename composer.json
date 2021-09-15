@@ -22,7 +22,7 @@
         "symfony/stopwatch": "^3.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8",
+        "phpunit/phpunit": "^7.0|^8.0|^9.0",
         "squizlabs/php_codesniffer": "^2.5",
         "klaussilveira/simple-shm": "^1.0"
     },
