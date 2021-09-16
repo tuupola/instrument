@@ -47,10 +47,7 @@ class Event extends Base implements Metric
     public function getValue($key = "title")
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        if (isset($this->value[$key])) {
-            return $this->value[$key];
-        }
-        return null;
+        return $this->get($key);
     }
 
     /** @deprecated */
@@ -58,12 +55,7 @@ class Event extends Base implements Metric
     public function setValue($key, $value = null)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        if (null === $value) {
-            $value = $key;
-            $key = "title";
-        }
-        $this->value[$key] = $value;
-        return $this;
+        return $this->set($key, $value);
     }
 
     /** @deprecated */

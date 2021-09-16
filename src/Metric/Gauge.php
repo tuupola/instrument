@@ -127,16 +127,7 @@ class Gauge extends Base implements Metric
     public function setValue($key, $value = null)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        if (null === $value) {
-            $value = $key;
-            $key = "value";
-        }
-
-        $data = json_decode($this->memory->read(), true);
-        $data[$key] = $value;
-        $this->memory->write(json_encode($data));
-
-        return $this;
+        return $this->set($key, $value);
     }
 
     /** @deprecated */
@@ -144,11 +135,7 @@ class Gauge extends Base implements Metric
     public function getValue($key = "value")
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        $data = json_decode($this->memory->read(), true);
-        if (isset($data[$key])) {
-            return $data[$key];
-        }
-        return null;
+        return $this->get($key);
     }
 
     public function fields()
@@ -163,9 +150,7 @@ class Gauge extends Base implements Metric
     public function getFields()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        $fields = json_decode($this->memory->read(), true);
-        unset($fields["value"]);
-        return $fields;
+        return $this->fields();
     }
 
     public function memory(SharedMemory $memory = null)

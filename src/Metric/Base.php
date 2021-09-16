@@ -79,12 +79,8 @@ abstract class Base implements Metric
     public function setValue($key, $value = null)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        if (null === $value) {
-            $value = $key;
-            $key = "value";
-        }
-        $this->value[$key] = $value;
-        return $this;
+        return $this->set($key, $value);
+
     }
 
     /** @deprecated */
@@ -92,10 +88,7 @@ abstract class Base implements Metric
     public function getValue($key = "value")
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        if (isset($this->value[$key])) {
-            return $this->value[$key];
-        }
-        return null;
+        return $this->get($key);
     }
 
     public function fields()
@@ -110,9 +103,7 @@ abstract class Base implements Metric
     public function getFields()
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        $fields = $this->value;
-        unset($fields["value"]);
-        return $fields;
+        return $this->fields();
     }
 
     public function tags($tags = null) {

@@ -75,18 +75,7 @@ class Timing extends Base implements Metric
     public function setValue($key, $value = null)
     {
         trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-        if (null === $value) {
-            $value = $key;
-            $key = "value";
-        }
-
-        /* Allow calling $timing->set("fly", function () {...}) */
-        if ($value instanceof Closure) {
-            $this->closure($key, $value);
-        } else {
-            $this->value[$key] = $value;
-        }
-        return $this;
+        return $this->set($key, value);
     }
 
     public function set($key, $value = null)
