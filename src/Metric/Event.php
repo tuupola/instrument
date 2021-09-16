@@ -21,18 +21,13 @@ class Event extends Base implements Metric
 {
     public function get($key = "title")
     {
-        return $this->getValue($key);
-    }
-
-    public function getValue($key = "title")
-    {
         if (isset($this->value[$key])) {
             return $this->value[$key];
         }
         return null;
     }
 
-    public function setValue($key, $value = null)
+    public function set($key, $value = null)
     {
         if (null === $value) {
             $value = $key;
@@ -42,8 +37,32 @@ class Event extends Base implements Metric
         return $this;
     }
 
+    public function type()
+    {
+        return "event";
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function getValue($key = "title")
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->get($key);
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function setValue($key, $value = null)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->set($key, $value);
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getType()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return "event";
     }
 }

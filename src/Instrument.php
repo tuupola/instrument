@@ -17,19 +17,21 @@ namespace Instrument;
 
 class Instrument
 {
-    use \Witchcraft\Hydrate;
-    use \Witchcraft\MagicMethods;
-
-    private $adapter = null;
-    private $transformer = null;
-    private $measurements = [];
-    private $events = [];
-    private $start = null;
-    private $end = null;
+    private $adapter;
+    private $transformer;
+    private $measurements;
+    private $events;
+    private $start;
+    private $end;
 
     public function __construct($options = [])
     {
-        $this->hydrate($options);
+        $this->adapter = $options["adapter"] ?? null;
+        $this->transformer = $options["transformer"] ?? null;
+        $this->measurements = $options["measurements"] ?? [];
+        $this->events = $options["events"] ?? [];
+        $this->start = $options["adapter"] ?? null;
+        $this->end = $options["adapter"] ?? null;
     }
 
     public function timing($name, $value = null)
@@ -128,35 +130,76 @@ class Instrument
         return $this;
     }
 
-    public function setAdapter($adapter)
-    {
-        $this->adapter = $adapter;
-        return $this;
-    }
-
-    public function getAdapter()
+    public function adapter()
     {
         return $this->adapter;
     }
 
-    public function setTransformer($transformer)
-    {
+    public function transformer($transformer = null) {
+        if (null === $transformer) {
+            return $this->transformer;
+        }
         $this->transformer = $transformer;
         return $this;
     }
 
-    public function getTransformer()
-    {
-        return $this->transformer;
-    }
-
-    public function getEvents()
+    public function events()
     {
         return $this->events;
     }
 
+    public function measurements()
+    {
+        return $this->measurements;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function setAdapter($adapter)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $this->adapter = $adapter;
+        return $this;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function getAdapter()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->adapter;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function setTransformer($transformer)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $this->transformer = $transformer;
+        return $this;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function getTransformer()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->transformer;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function getEvents()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->events;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getMeasurements()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return $this->measurements;
     }
 }

@@ -18,13 +18,11 @@ use Instrument\Transformer;
 
 abstract class Base implements Transformer
 {
-    use \Witchcraft\Hydrate;
-
     private $points = [];
 
     public function __construct($options = [])
     {
-        $this->hydrate($options);
+        //$this->hydrate($options);
     }
 
     abstract public function transform(array $measurements);

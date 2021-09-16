@@ -18,9 +18,6 @@ use Instrument\Metric;
 
 abstract class Base implements Metric
 {
-    use \Witchcraft\Hydrate;
-    use \Witchcraft\MagicMethods;
-
     private $name = null;
     protected $value = [];
     private $tags = [];
@@ -28,7 +25,7 @@ abstract class Base implements Metric
     public function __construct($options = [])
     {
         if (isset($options["name"])) {
-            $this->setName($options["name"]);
+            $this->name($options["name"]);
             unset($options["name"]);
         }
 
@@ -39,28 +36,15 @@ abstract class Base implements Metric
         }
     }
 
-    public function setName($name)
-    {
-        $this->name = (string) $name;
+    public function name($name = null) {
+        if (null === $name) {
+            return $this->name;
+        }
+        $this->name = $name;
         return $this;
     }
 
-    public function getName()
-    {
-        return $this->name;
-    }
-
     public function set($key, $value = null)
-    {
-        return $this->setValue($key, $value);
-    }
-
-    public function get($key = "value")
-    {
-        return $this->getValue($key);
-    }
-
-    public function setValue($key, $value = null)
     {
         if (null === $value) {
             $value = $key;
@@ -70,7 +54,7 @@ abstract class Base implements Metric
         return $this;
     }
 
-    public function getValue($key = "value")
+    public function get($key = "value")
     {
         if (isset($this->value[$key])) {
             return $this->value[$key];
@@ -78,21 +62,72 @@ abstract class Base implements Metric
         return null;
     }
 
-    public function getFields()
+    public function value($key = "value", $value = null)
+    {
+        if (null === $value) {
+            if (isset($this->value[$key])) {
+                return $this->value[$key];
+            }
+            return null;
+        }
+        $this->value[$key] = $value;
+        return $this;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function setValue($key, $value = null)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->set($key, $value);
+
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function getValue($key = "value")
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->get($key);
+    }
+
+    public function fields()
     {
         $fields = $this->value;
         unset($fields["value"]);
         return $fields;
     }
 
-    public function setTags(array $tags)
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function getFields()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->fields();
+    }
+
+    public function tags(array $tags = null) {
+        if (null === $tags) {
+            return $this->tags;
+        }
         $this->tags = $tags;
         return $this;
     }
 
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function setTags(array $tags)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $this->tags = $tags;
+        return $this;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getTags()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return $this->tags;
     }
 
@@ -112,6 +147,23 @@ abstract class Base implements Metric
     {
         unset($this->tags[$key]);
         return $this;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function setName($name)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        $this->name = (string) $name;
+        return $this;
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function getName()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->name;
     }
 
     abstract public function getType();

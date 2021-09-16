@@ -18,8 +18,6 @@ namespace Instrument;
 interface Adapter
 {
     public function send(array $points = []);
-    public function setClient($client = null);
-    public function getClient();
-    public function setMeasurements(array $measurements);
-    public function getMeasurements();
+    public function client($client = null);
+    public function measurements(array $measurements = null);
 }

@@ -22,8 +22,6 @@ use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class Timing extends Base implements Metric
 {
-    use \Witchcraft\MagicProperties;
-
     private $stopwatch = null;
     private $memory = null;
     private $keys = [];
@@ -72,7 +70,15 @@ class Timing extends Base implements Metric
         return $return;
     }
 
+    /** @deprecated */
+    /** @codeCoverageIgnore */
     public function setValue($key, $value = null)
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->set($key, value);
+    }
+
+    public function set($key, $value = null)
     {
         if (null === $value) {
             $value = $key;
@@ -93,13 +99,29 @@ class Timing extends Base implements Metric
         return $this->stopwatch;
     }
 
-    public function getMemory()
+    public function memory()
     {
         return $this->memory;
     }
 
+    /** @deprecated */
+    /** @codeCoverageIgnore */
+    public function getMemory()
+    {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
+        return $this->memory;
+    }
+
+    public function type()
+    {
+        return "timing";
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getType()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return "timing";
     }
 }

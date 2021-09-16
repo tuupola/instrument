@@ -20,10 +20,8 @@ use InfluxDB\Database;
 
 class Memory extends Base implements Adapter
 {
-    use \Witchcraft\MagicMethods;
-
     public function send(array $measurements = [])
     {
-        return $this->setMeasurements($measurements);
+        return $this->measurements($measurements);
     }
 }

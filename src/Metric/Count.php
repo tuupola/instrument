@@ -49,8 +49,16 @@ class Count extends Base implements Metric
         return $this;
     }
 
+    public function type()
+    {
+        return "count";
+    }
+
+    /** @deprecated */
+    /** @codeCoverageIgnore */
     public function getType()
     {
+        trigger_error("Method " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
         return "count";
     }
 }

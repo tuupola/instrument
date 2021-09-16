@@ -17,18 +17,14 @@ namespace Instrument;
 
 interface Metric
 {
-    public function setValue($value);
-    public function getValue();
+    public function value($key = "value", $value = null);
     public function set($key, $value);
     public function get($key);
+    public function name($name = null);
+    public function type();
+    public function fields();
 
-    public function setName($name);
-    public function getName();
-
-    public function getType();
-
-    public function setTags(array $tags);
-    public function getTags();
+    public function tags(array $tags = null);
     public function addTag($key, $value);
     public function addTags(array $tags);
     public function removeTag($key);

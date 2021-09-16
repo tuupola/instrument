@@ -45,28 +45,28 @@ class TimingTest extends TestCase
     public function testShouldSetAndGetTags()
     {
         $timing = new Timing();
-        $timing->setTags(["foo" => "bar"]);
-        $this->assertEquals(["foo" => "bar"], $timing->getTags());
+        $timing->tags(["foo" => "bar"]);
+        $this->assertEquals(["foo" => "bar"], $timing->tags());
     }
 
     public function testShouldAddAndRemoveTags()
     {
         $timing = new Timing();
-        $timing->setTags(["foo" => "bar"]);
-        $this->assertEquals(["foo" => "bar"], $timing->getTags());
+        $timing->tags(["foo" => "bar"]);
+        $this->assertEquals(["foo" => "bar"], $timing->tags());
         $timing->addTag("hit", "pop");
-        $this->assertEquals(["foo" => "bar", "hit" => "pop"], $timing->getTags());
+        $this->assertEquals(["foo" => "bar", "hit" => "pop"], $timing->tags());
         $timing->removeTag("foo");
-        $this->assertEquals(["hit" => "pop"], $timing->getTags());
+        $this->assertEquals(["hit" => "pop"], $timing->tags());
     }
 
     public function testShouldAddMultipleTags()
     {
         $timing = new Timing();
-        $timing->setTags(["foo" => "bar"]);
-        $this->assertEquals(["foo" => "bar"], $timing->getTags());
+        $timing->tags(["foo" => "bar"]);
+        $this->assertEquals(["foo" => "bar"], $timing->tags());
         $timing->addTags(["hit" => "pop", "baz" => "com"]);
-        $this->assertEquals(["foo" => "bar", "hit" => "pop", "baz" => "com"], $timing->getTags());
+        $this->assertEquals(["foo" => "bar", "hit" => "pop", "baz" => "com"], $timing->tags());
     }
 
     public function testShouldBeChainable()
