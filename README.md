@@ -1,7 +1,7 @@
 #  Instrument
 
 [![Latest Version](https://img.shields.io/packagist/v/tuupola/instrument.svg?style=flat-square)](https://packagist.org/packages/tuupola/instrument)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/github/workflow/status/tuupola/instrument/Tests/master?style=flat-square)](https://github.com/tuupola/instrument/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/tuupola/instrument.svg?style=flat-square)](https://codecov.io/github/tuupola/instrument)
 

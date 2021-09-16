@@ -1,6 +1,4 @@
-<?php
-
-/*
+MIT License
 
 Copyright (c) 2016-2021 Mika Tuupola
 
@@ -21,19 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-*/
-
-/**
- * @see       https://github.com/tuupola/instrument
- * @license   https://www.opensource.org/licenses/mit-license.php
- */
-
-namespace Instrument;
-
-interface Adapter
-{
-    public function send(array $points = []);
-    public function client($client = null);
-    public function measurements(array $measurements = null);
-}
