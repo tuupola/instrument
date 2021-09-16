@@ -26,7 +26,7 @@ static: vendor
 	vendor/bin/phpstan analyse src --level max
 
 watch: vendor
-	find . -name "*.php" -not -path "./vendor/*" -o -name "*.json" -not -path "./vendor/*" | entr -c make test
+	find . -name "*.php" -not -path "./vendor/*" -not -path "./demo/vendor/*" -o -name "*.json" -not -path "./vendor/*" | entr -c make test
 
 test: #lint unit #static
 test: unit
