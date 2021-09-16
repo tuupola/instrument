@@ -3,3 +3,5 @@
 composer.lock
 /demo/vendor/
 /demo/.vagrant/
+.phpunit.result.cache
+coverage.xml
