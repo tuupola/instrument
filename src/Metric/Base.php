@@ -106,7 +106,7 @@ abstract class Base implements Metric
         return $this->fields();
     }
 
-    public function tags($tags = null) {
+    public function tags(array $tags = null) {
         if (null === $tags) {
             return $this->tags;
         }
