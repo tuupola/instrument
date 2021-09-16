@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Removed
 - Remove internal usage of `tuupola/witchcraft` ([#2](https://github.com/tuupola/instrument/pull/2)).
 
+### Added
+- Allow installing with recent versions of `symfony/stopwatch`  ([#4](https://github.com/tuupola/instrument/pull/4)).
 ### Changed
 - Minimum supported PHP version is now PHP 7.0
 
