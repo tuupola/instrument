@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Removed
 - Remove internal usage of `tuupola/witchcraft` ([#2](https://github.com/tuupola/instrument/pull/2)).
 
+### Changed
+- Minimum supported PHP version is now PHP 7.0
+
 ## [1.2.0](https://github.com/tuupola/instrument/compare/1.1.0...1.2.0) - 2016-10-08
 ### Added
 - Possibility to add multiple tags in one call
